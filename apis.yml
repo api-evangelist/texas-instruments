@@ -1,7 +1,12 @@
 aid: texas-instruments
-url: https://raw.githubusercontent.com/api-evangelist/texas-instruments/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/texas-instruments/refs/heads/main/apis.yml
 modified: '2026-03-21'
 apis: []
 common:
   - type: Website
     url: https://www.texas-instruments.com
+description: >-
+  Texas Instruments is an American technology company that designs and manufactures
+  semiconductors and various integrated circuits for industrial, automotive, personal
+  electronics, communications equipment, and enterprise systems markets.
