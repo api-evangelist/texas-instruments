@@ -1,0 +1,107 @@
+{
+  "title": "Texas Instruments API Resource Structure",
+  "description": "Documents the data structures used by the TI Store and Product Information APIs.",
+  "version": "2.0",
+  "structures": {
+    "Product": {
+      "description": "A Texas Instruments semiconductor product (orderable part number).",
+      "fields": {
+        "tiPartNumber": "string — orderable part number (OPN), e.g. LM358BIDR",
+        "genericPartNumber": "string — base/generic part number",
+        "description": "string — product description",
+        "packageType": "string — package type (SOIC, QFN, DIP, etc.)",
+        "pinCount": "integer — number of pins",
+        "lifeCycle": "enum: Active | NRND | Preview | Obsolete",
+        "quantity": "integer — current available stock",
+        "minimumOrderQuantity": "integer — MOQ",
+        "standardPackQuantity": "integer — standard pack quantity",
+        "customReel": "boolean — custom reel available",
+        "eccn": "string — export control classification",
+        "htsCode": "string — harmonized tariff schedule code",
+        "pricing[].currency": "string — ISO 4217 currency code",
+        "pricing[].priceBreaks[].priceBreakQuantity": "integer — min qty for tier",
+        "pricing[].priceBreaks[].price": "decimal — unit price at this tier",
+        "futureInventory[].forecastQuantity": "integer|null — forecasted qty",
+        "futureInventory[].forecastDate": "string — expected availability date",
+        "parametricData[].parameterName": "string — specification name",
+        "parametricData[].value": "string — specification value",
+        "parametricData[].unit": "string — measurement unit",
+        "qualityData.qualificationStatus": "string — qualification level",
+        "qualityData.moistureSensitivityLevel": "string — MSL rating",
+        "qualityData.rohs": "boolean — RoHS compliant",
+        "qualityData.aecQ100": "boolean — automotive qualified",
+        "productFamily": "string — TI product family",
+        "dataSheetUrl": "uri — datasheet URL",
+        "productPageUrl": "uri — product page URL"
+      }
+    },
+    "Order": {
+      "description": "A TI store purchase order.",
+      "fields": {
+        "orderNumber": "string — TI-assigned order number",
+        "orderStatus": "string — current order status",
+        "customerPurchaseOrderNumber": "string — customer's PO number",
+        "checkoutProfileId": "string — TI checkout profile ID",
+        "purchaseOrderDate": "date — ISO 8601 PO date",
+        "endCustomerCompanyName": "string — end customer (export compliance)",
+        "expediteShipping": "boolean — expedited shipping requested",
+        "orderPlacedTime": "datetime — when the order was submitted",
+        "subTotal": "decimal — order subtotal",
+        "totalPrice": "decimal — total order price",
+        "totalTax": "decimal — tax amount",
+        "totalDeliveryCost": "decimal — shipping cost",
+        "totalDiscount": "decimal — discount applied",
+        "currencyISO": "string — currency code",
+        "paymentType": "string — payment method",
+        "lineItems[].tiPartNumber": "string — ordered part number",
+        "lineItems[].quantity": "integer — ordered quantity",
+        "lineItems[].unitPrice": "decimal — unit price",
+        "lineItems[].status": "string — line item status",
+        "lineItems[].customReelIndicator": "boolean — custom reel requested",
+        "shippingAddress": "Address object",
+        "billingAddress": "Address object"
+      }
+    },
+    "AdvancedShipNotice": {
+      "description": "Shipment tracking information for a TI order.",
+      "fields": {
+        "asnNumber": "string — ASN identifier",
+        "orderNumber": "string — associated order number",
+        "trackingNumber": "string — carrier tracking number",
+        "carrier": "string — carrier name (FedEx, UPS, etc.)",
+        "shipDate": "date — shipment date",
+        "estimatedDeliveryDate": "date — estimated delivery",
+        "lineItems[].tiPartNumber": "string — shipped part number",
+        "lineItems[].quantity": "integer — shipped quantity"
+      }
+    },
+    "FinancialDocument": {
+      "description": "An invoice or financial document from TI.",
+      "fields": {
+        "financialDocumentNumber": "string — invoice/document number",
+        "orderNumber": "string — associated order number",
+        "deliveryNumber": "string — delivery number",
+        "invoiceAmount": "decimal — invoice total",
+        "invoiceDate": "date — invoice date",
+        "currencyISO": "string — currency code",
+        "documentType": "string — document type (Invoice, Credit Memo, etc.)"
+      }
+    },
+    "Address": {
+      "description": "Shipping or billing address.",
+      "fields": {
+        "firstName": "string",
+        "lastName": "string",
+        "company": "string",
+        "addressLine1": "string",
+        "addressLine2": "string",
+        "city": "string",
+        "state": "string",
+        "postalCode": "string",
+        "country": "string",
+        "email": "string",
+        "phone": "string"
+      }
+    }
+  }
+}

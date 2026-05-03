@@ -1,0 +1,88 @@
+extends: spectral:oas
+rules:
+  # TI API: Paths must use versioned base paths
+  ti-path-version-prefix:
+    description: TI API paths should include version prefix
+    message: Path "{{value}}" should use a versioned path (e.g., /v1/ or /v2/)
+    severity: warn
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/v[0-9]/"
+
+  # TI API: OAuth2 must be defined for all operations
+  ti-oauth2-security:
+    description: All TI API operations must use OAuth2 authentication
+    message: Operation must define OAuth2 security
+    severity: error
+    given: "$.paths[*][get,post,put,delete]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          anyOf:
+            - required: [security]
+            - {}
+
+  # TI API: Part number path params must use specific name
+  ti-part-number-param-name:
+    description: Part number path parameters should be named partNumber
+    message: Part number parameter should be named "partNumber"
+    severity: info
+    given: "$.paths[*][*].parameters[?(@.in == 'path')]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          not:
+            properties:
+              name:
+                enum: [part, part_number, partnumber, opn]
+
+  # TI API: 200 responses must have content
+  ti-200-response-content:
+    description: Successful responses must return content
+    message: Response 200 must include content definition
+    severity: warn
+    given: "$.paths[*][get,post].responses.200"
+    then:
+      field: content
+      function: truthy
+
+  # TI API: All operations must have summaries
+  ti-operation-summary:
+    description: All operations must have a summary
+    message: Operation is missing a summary
+    severity: error
+    given: "$.paths[*][get,post,put,delete]"
+    then:
+      field: summary
+      function: truthy
+
+  # TI API: Tags must use Title Case
+  ti-tags-title-case:
+    description: Tags must use Title Case
+    message: Tag "{{value}}" should use Title Case
+    severity: warn
+    given: "$.paths[*][*].tags[*]"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z]*(\\s[A-Z][a-zA-Z]*)*$"
+
+  # TI API: POST create operations should return 201
+  ti-create-returns-201:
+    description: POST create operations should return HTTP 201
+    message: POST operation that creates resources should return 201
+    severity: info
+    given: "$.paths[*].post"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          properties:
+            responses:
+              anyOf:
+                - required: ["201"]
+                - required: ["200"]

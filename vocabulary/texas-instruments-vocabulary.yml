@@ -1,0 +1,158 @@
+vocabulary:
+  name: Texas Instruments API Vocabulary
+  description: >-
+    Domain vocabulary for the Texas Instruments Developer API, covering
+    semiconductor ordering, product information, supply chain, and
+    quality/compliance terminology.
+  version: '1.0'
+  created: '2026-05-03'
+  modified: '2026-05-03'
+
+terms:
+  - term: OPN
+    definition: >-
+      Orderable Part Number. The specific TI part identifier including
+      package type and temperature grade variants. Used as the primary
+      key in Store and Product Information API calls.
+    domain: Product Identification
+    tags:
+      - Product
+      - Identification
+
+  - term: Price Break
+    definition: >-
+      A quantity threshold at which the unit price for a TI part changes.
+      Customers ordering above a break quantity receive the lower per-unit
+      price for that entire order.
+    domain: Pricing
+    tags:
+      - Pricing
+      - Ordering
+
+  - term: Life Cycle Status
+    definition: >-
+      The product lifecycle phase of a TI part. Key statuses include
+      Active (in production), NRND (Not Recommended for New Designs),
+      Preview (pre-production), and Obsolete (discontinued).
+    domain: Product Management
+    tags:
+      - Product
+      - Lifecycle
+
+  - term: NRND
+    definition: >-
+      Not Recommended for New Designs. A lifecycle status indicating that
+      TI still manufactures the part but recommends customers design new
+      products with a newer alternative.
+    domain: Product Management
+    tags:
+      - Product
+      - Lifecycle
+
+  - term: Checkout Profile
+    definition: >-
+      A saved configuration in a myTI company account that stores shipping
+      address, payment, and export compliance preferences. Referenced in
+      order API calls via checkoutProfileId.
+    domain: Ordering
+    tags:
+      - Ordering
+      - Account
+
+  - term: ASN
+    definition: >-
+      Advanced Ship Notice. A pre-shipment notification document detailing
+      carrier, tracking number, shipment contents, and estimated delivery.
+      Retrievable via the ASN Retrieve API after TI ships an order.
+    domain: Logistics
+    tags:
+      - Logistics
+      - Shipment
+
+  - term: ECCN
+    definition: >-
+      Export Control Classification Number. A US government classification
+      system for export-controlled products. TI parts include this code
+      for trade compliance purposes.
+    domain: Compliance
+    tags:
+      - Compliance
+      - Export Control
+
+  - term: HTS Code
+    definition: >-
+      Harmonized Tariff Schedule code. An international customs classification
+      system used for import/export declarations and duty calculation.
+    domain: Compliance
+    tags:
+      - Compliance
+      - Customs
+
+  - term: RoHS
+    definition: >-
+      Restriction of Hazardous Substances. A European directive that restricts
+      the use of specific hazardous materials in electronics manufacturing.
+      TI parts are flagged for RoHS compliance status.
+    domain: Compliance
+    tags:
+      - Compliance
+      - Environmental
+
+  - term: AEC-Q100
+    definition: >-
+      Automotive Electronics Council stress test qualification for integrated
+      circuits used in automotive applications. Automotive-grade TI parts
+      carry AEC-Q100 qualification.
+    domain: Quality
+    tags:
+      - Quality
+      - Automotive
+
+  - term: MSL
+    definition: >-
+      Moisture Sensitivity Level. A JEDEC/IPC standard rating indicating
+      how sensitive a surface mount component is to moisture absorption.
+      Controls handling and storage requirements before reflow soldering.
+    domain: Quality
+    tags:
+      - Quality
+      - Manufacturing
+
+  - term: Custom Reel
+    definition: >-
+      An ordering option allowing customers to request non-standard reel
+      quantities of tape-and-reel packaged TI parts, rather than the
+      standard full reel quantity.
+    domain: Ordering
+    tags:
+      - Ordering
+      - Packaging
+
+  - term: Parametric Data
+    definition: >-
+      Electrical and mechanical specifications for a TI semiconductor part,
+      such as supply voltage range, bandwidth, output current, and operating
+      temperature. Returned by the Product Information API.
+    domain: Product Information
+    tags:
+      - Product
+      - Specifications
+
+  - term: Backlog API
+    definition: >-
+      TI's API suite for managing future fulfillment orders (parts not
+      currently in stock), including order placement, shipment tracking,
+      invoice retrieval, and payment submission for scheduled deliveries.
+    domain: Ordering
+    tags:
+      - Ordering
+      - Backlog
+
+  - term: Future Inventory
+    definition: >-
+      A forecast provided by the TI Store API indicating when and in what
+      quantity a currently out-of-stock part is expected to become available.
+    domain: Inventory
+    tags:
+      - Inventory
+      - Forecasting

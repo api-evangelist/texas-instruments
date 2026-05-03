@@ -1,0 +1,233 @@
+openapi: 3.0.3
+info:
+  title: Texas Instruments Product Information API
+  description: >-
+    The Texas Instruments Product Information API provides programmatic access
+    to TI's product catalog, including part details, parametric data, quality
+    and reliability information. Two variants are available: the standard API
+    (multiple endpoint calls, higher rate limit) and the orchestrated API
+    (single endpoint call, lower rate limit). Authentication uses OAuth 2.0
+    client credentials flow.
+  version: '1.0'
+  contact:
+    name: Texas Instruments API Support
+    url: https://api-portal.ti.com/support
+  license:
+    name: Proprietary
+    url: https://www.ti.com/
+externalDocs:
+  description: TI Product Information API Developer Portal
+  url: https://www.ti.com/developer-api/product-information-api-suite/getting-started.html
+servers:
+  - url: https://transact.ti.com/v1
+    description: Production - TI Product Information API
+security:
+  - OAuth2: []
+tags:
+  - name: Product Information
+    description: Product details and parametric data
+  - name: Product Information Orchestrated
+    description: Single-call product details including quality and reliability
+
+paths:
+  /products/{partNumber}:
+    get:
+      operationId: getProductInformation
+      summary: Get Product Information
+      description: >-
+        Retrieves basic product details and parametric data for a specific
+        TI part number. Part numbers containing /NOPB must be URL-encoded
+        (/ becomes %2F). Daily rate limit: 3,000 calls.
+      tags:
+        - Product Information
+      parameters:
+        - name: partNumber
+          in: path
+          required: true
+          description: >-
+            TI part number. URL-encode special characters (e.g., /NOPB
+            becomes %2FNOPB).
+          schema:
+            type: string
+          example: OPA1612AIDR
+      responses:
+        '200':
+          description: Product information and parametric data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductInformation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /products-extended/{partNumber}:
+    get:
+      operationId: getProductInformationOrchestrated
+      summary: Get Product Information (Orchestrated)
+      description: >-
+        Retrieves comprehensive product data including basic product details,
+        parametric data, quality and reliability information in a single
+        endpoint call. Slower response time than the standard API.
+        Daily rate limit: 1,500 calls. Supports pagination via page parameter.
+      tags:
+        - Product Information Orchestrated
+      parameters:
+        - name: partNumber
+          in: path
+          required: true
+          description: >-
+            TI part number. URL-encode special characters.
+          schema:
+            type: string
+          example: LM358BIDR
+        - name: page
+          in: query
+          required: false
+          description: Page number for paginated results (0-indexed)
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Comprehensive product data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductInformationExtended'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://transact.ti.com/v1/oauth/accesstoken
+          scopes: {}
+      description: >-
+        OAuth 2.0 client credentials flow. Obtain access token using
+        client_id and client_secret from your myTI developer account.
+
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid or missing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Part number not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+
+    ParametricData:
+      type: object
+      description: Technical parametric specification for a TI part.
+      properties:
+        parameterName:
+          type: string
+          description: Parameter name (e.g., "Supply Voltage (Max)")
+        value:
+          type: string
+          description: Parameter value
+        unit:
+          type: string
+          description: Unit of measurement (e.g., V, MHz, mA)
+
+    ProductInformation:
+      type: object
+      description: Basic product details and parametric data for a TI part number.
+      properties:
+        tiPartNumber:
+          type: string
+          description: TI part number (OPN)
+        genericPartNumber:
+          type: string
+          description: Generic/base part number
+        description:
+          type: string
+          description: Part description
+        packageType:
+          type: string
+          description: Package type (e.g., SOIC, QFN)
+        pinCount:
+          type: integer
+          description: Number of pins
+        lifeCycle:
+          type: string
+          description: Product lifecycle status
+        productFamily:
+          type: string
+          description: TI product family
+        tiProductType:
+          type: string
+          description: TI product type category
+        dataSheetUrl:
+          type: string
+          description: URL to the product datasheet
+        productPageUrl:
+          type: string
+          description: URL to the TI product page
+        parametricData:
+          type: array
+          description: Technical specifications and parameters
+          items:
+            $ref: '#/components/schemas/ParametricData'
+
+    QualityData:
+      type: object
+      description: Quality and reliability data for a TI part.
+      properties:
+        qualificationStatus:
+          type: string
+          description: Qualification status (e.g., Qualified, Automotive)
+        moistureSensitivityLevel:
+          type: string
+          description: MSL rating (e.g., MSL 1, MSL 2)
+        rohs:
+          type: boolean
+          description: Whether the part is RoHS compliant
+        aecQ100:
+          type: boolean
+          description: Whether the part is AEC-Q100 qualified for automotive
+
+    ProductInformationExtended:
+      type: object
+      description: Comprehensive product data including quality and reliability.
+      allOf:
+        - $ref: '#/components/schemas/ProductInformation'
+      properties:
+        qualityData:
+          $ref: '#/components/schemas/QualityData'
+        page:
+          type: integer
+          description: Current page number
+        totalPages:
+          type: integer
+          description: Total number of pages

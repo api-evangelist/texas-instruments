@@ -1,0 +1,88 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://transact.ti.com/v2/store/orders/",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "checkoutProfileId": "ACME-CORP-PROFILE-001",
+      "customerPurchaseOrderNumber": "PO-2026-0503-001",
+      "purchaseOrderDate": "2026-05-03",
+      "endCustomerCompanyName": "Acme Corporation",
+      "expediteShipping": false,
+      "customerOrderComments": [
+        {
+          "message": "Please include packing slip"
+        }
+      ],
+      "lineItems": [
+        {
+          "customerLineItemNumber": 1,
+          "tiPartNumber": "LM358BIDR",
+          "customerPartNumber": "ACME-OPAMP-001",
+          "customReelIndicator": false,
+          "quantity": 100,
+          "customerItemComments": []
+        },
+        {
+          "customerLineItemNumber": 2,
+          "tiPartNumber": "OPA1612AIDR",
+          "customerPartNumber": "ACME-OPAMP-002",
+          "customReelIndicator": false,
+          "quantity": 50
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "orderNumber": "9876543210",
+      "orderStatus": "Processing",
+      "customerPurchaseOrderNumber": "PO-2026-0503-001",
+      "orderPlacedTime": "2026-05-03T12:34:56Z",
+      "subTotal": 56.50,
+      "totalPrice": 58.45,
+      "totalTax": 1.95,
+      "totalDeliveryCost": 0.00,
+      "totalDiscount": 0.00,
+      "currencyISO": "USD",
+      "paymentType": "NetTerms",
+      "lineItems": [
+        {
+          "tiPartNumber": "LM358BIDR",
+          "tiPartDescription": "LM358B Dual Op Amp",
+          "quantity": 100,
+          "status": "Confirmed",
+          "unitPrice": 0.28,
+          "customReelIndicator": false
+        },
+        {
+          "tiPartNumber": "OPA1612AIDR",
+          "tiPartDescription": "OPA1612 Audio Op Amp",
+          "quantity": 50,
+          "status": "Confirmed",
+          "unitPrice": 0.85,
+          "customReelIndicator": false
+        }
+      ],
+      "shippingAddress": {
+        "firstName": "John",
+        "lastName": "Smith",
+        "company": "Acme Corporation",
+        "addressLine1": "123 Main Street",
+        "city": "Austin",
+        "state": "TX",
+        "postalCode": "78701",
+        "country": "US",
+        "email": "jsmith@acme.com",
+        "phone": "+1-512-555-0100"
+      }
+    }
+  }
+}

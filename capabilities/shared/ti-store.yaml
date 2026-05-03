@@ -1,0 +1,255 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Texas Instruments Store API"
+  description: "TI Store API for real-time inventory/pricing, order creation, shipment tracking, and financial document retrieval."
+  tags:
+    - Texas Instruments
+    - Ordering
+    - Inventory
+    - Supply Chain
+    - Semiconductors
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TI_ACCESS_TOKEN: TI_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: ti-store
+      baseUri: https://transact.ti.com/v2/store
+      description: "Texas Instruments store ordering and inventory API"
+      authentication:
+        type: bearer
+        token: "{{TI_ACCESS_TOKEN}}"
+      resources:
+        - name: products
+          path: /products/{partNumber}
+          description: "Get inventory and pricing for a TI part"
+          operations:
+            - name: get-product-inventory
+              method: GET
+              description: "Get real-time inventory and pricing for a part number"
+              inputParameters:
+                - name: partNumber
+                  in: path
+                  type: string
+                  required: true
+                  description: "TI orderable part number"
+                - name: currency
+                  in: query
+                  type: string
+                  required: false
+                  description: "Currency code (default: USD)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: catalog
+          path: /products/catalog
+          description: "Full product catalog"
+          operations:
+            - name: get-catalog
+              method: GET
+              description: "Get full product catalog with pricing (rate limited to 6/day)"
+              inputParameters:
+                - name: currency
+                  in: query
+                  type: string
+                  required: false
+                  description: "Currency code"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: orders
+          path: /orders
+          description: "Create store orders"
+          operations:
+            - name: create-order
+              method: POST
+              description: "Create a new TI store order"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  checkoutProfileId: "{{tools.checkoutProfileId}}"
+                  customerPurchaseOrderNumber: "{{tools.poNumber}}"
+                  lineItems: "{{tools.lineItems}}"
+
+        - name: order
+          path: /orders/{orderNumber}
+          description: "Retrieve order details"
+          operations:
+            - name: get-order
+              method: GET
+              description: "Get order status and details"
+              inputParameters:
+                - name: orderNumber
+                  in: path
+                  type: string
+                  required: true
+                  description: "TI order number"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: asn
+          path: /advanced-ship-notices
+          description: "Shipment tracking via ASN"
+          operations:
+            - name: get-ship-notices
+              method: GET
+              description: "Get advanced ship notice for an order"
+              inputParameters:
+                - name: orderNumber
+                  in: query
+                  type: string
+                  required: true
+                  description: "TI order number"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: financial-documents
+          path: /financial-documents
+          description: "Invoice and financial document retrieval"
+          operations:
+            - name: get-financial-documents
+              method: GET
+              description: "Get invoices for an order"
+              inputParameters:
+                - name: orderNumber
+                  in: query
+                  type: string
+                  required: false
+                  description: "TI order number"
+                - name: financialDocumentNumber
+                  in: query
+                  type: string
+                  required: false
+                  description: "Financial document number"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: ti-store-api
+      resources:
+        - path: /v1/products/{partNumber}
+          name: product
+          description: "TI product inventory and pricing"
+          operations:
+            - method: GET
+              name: get-product
+              description: "Get inventory and pricing for a TI part"
+              call: "ti-store.get-product-inventory"
+              with:
+                partNumber: "rest.partNumber"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/orders
+          name: orders
+          description: "TI store orders"
+          operations:
+            - method: POST
+              name: create-order
+              description: "Create a new order"
+              call: "ti-store.create-order"
+              with:
+                checkoutProfileId: "rest.checkoutProfileId"
+                poNumber: "rest.poNumber"
+                lineItems: "rest.lineItems"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: ti-store-mcp
+      transport: http
+      tools:
+        - name: get-product-inventory
+          description: "Get real-time inventory and pricing for a TI part number"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "ti-store.get-product-inventory"
+          with:
+            partNumber: "tools.partNumber"
+            currency: "tools.currency"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-order
+          description: "Create a new TI store order"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "ti-store.create-order"
+          with:
+            checkoutProfileId: "tools.checkoutProfileId"
+            poNumber: "tools.poNumber"
+            lineItems: "tools.lineItems"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-order
+          description: "Get status and details of a TI store order"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "ti-store.get-order"
+          with:
+            orderNumber: "tools.orderNumber"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-shipment-tracking
+          description: "Get advanced ship notice (tracking) for a TI order"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "ti-store.get-ship-notices"
+          with:
+            orderNumber: "tools.orderNumber"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-invoices
+          description: "Get financial documents and invoices for a TI order"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "ti-store.get-financial-documents"
+          with:
+            orderNumber: "tools.orderNumber"
+          outputParameters:
+            - type: object
+              mapping: "$."

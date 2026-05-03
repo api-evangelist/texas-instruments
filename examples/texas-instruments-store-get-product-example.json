@@ -1,0 +1,61 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://transact.ti.com/v2/store/products/LM358BIDR?currency=USD",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tiPartNumber": "LM358BIDR",
+      "genericPartNumber": "LM358B",
+      "description": "LM358B Low-Offset, Low-Power, Dual Op Amp | 8-SOIC -40 to 125",
+      "quantity": 45230,
+      "limit": 2000,
+      "minimumOrderQuantity": 1,
+      "standardPackQuantity": 2500,
+      "lifeCycle": "Active",
+      "eccn": "EAR99",
+      "htsCode": "8542.33.00.01",
+      "pinCount": 8,
+      "packageType": "SOIC",
+      "packageCarrier": "Tape and Reel",
+      "customReel": true,
+      "pricing": [
+        {
+          "currency": "USD",
+          "priceBreaks": [
+            {
+              "priceBreakQuantity": 1,
+              "price": 0.49
+            },
+            {
+              "priceBreakQuantity": 10,
+              "price": 0.38
+            },
+            {
+              "priceBreakQuantity": 100,
+              "price": 0.28
+            },
+            {
+              "priceBreakQuantity": 1000,
+              "price": 0.19
+            }
+          ]
+        }
+      ],
+      "futureInventory": [
+        {
+          "forecastQuantity": 10000,
+          "forecastDate": "2026-06-15"
+        }
+      ]
+    }
+  }
+}

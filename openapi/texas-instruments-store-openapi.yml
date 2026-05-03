@@ -1,0 +1,598 @@
+openapi: 3.0.3
+info:
+  title: Texas Instruments Store API
+  description: >-
+    The Texas Instruments Store API provides programmatic access to TI's
+    ordering and inventory platform. It enables enterprise customers to
+    retrieve real-time inventory and pricing, create and retrieve orders,
+    and track shipments via Advanced Ship Notice (ASN). Authentication
+    uses OAuth 2.0 client credentials flow against the transact.ti.com
+    token endpoint.
+  version: '2.0'
+  contact:
+    name: Texas Instruments API Support
+    url: https://api-portal.ti.com/support
+  license:
+    name: Proprietary
+    url: https://www.ti.com/
+externalDocs:
+  description: TI Store API Developer Portal
+  url: https://www.ti.com/developer-api/store-api/getting-started.html
+servers:
+  - url: https://transact.ti.com/v2/store
+    description: Production - TI Store API
+  - url: https://transact.ti.com/v2/store/orders/test
+    description: Test - Order API
+security:
+  - OAuth2: []
+tags:
+  - name: Products
+    description: Product inventory, pricing, and catalog endpoints
+  - name: Orders
+    description: Order creation and retrieval
+  - name: Shipments
+    description: Advanced Ship Notice (ASN) retrieval
+  - name: Financial
+    description: Financial document and invoice retrieval
+  - name: Authentication
+    description: OAuth 2.0 token endpoints
+
+paths:
+  /products/{partNumber}:
+    get:
+      operationId: getProductInventoryAndPricing
+      summary: Get Product Inventory and Pricing
+      description: >-
+        Retrieves real-time inventory availability, pricing breaks, future
+        inventory forecasts, and product metadata for a specific TI part number.
+        Part numbers containing /NOPB must be URL-encoded (/ becomes %2F).
+      tags:
+        - Products
+      parameters:
+        - name: partNumber
+          in: path
+          required: true
+          description: >-
+            TI part number (OPN). URL-encode special characters (e.g., /NOPB
+            becomes %2FNOPB).
+          schema:
+            type: string
+          example: LM358BIDR
+        - name: currency
+          in: query
+          required: false
+          description: Currency code for pricing data (e.g., USD, EUR)
+          schema:
+            type: string
+            default: USD
+      responses:
+        '200':
+          description: Product inventory and pricing data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductInventory'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /products/catalog:
+    get:
+      operationId: getProductCatalog
+      summary: Get Product Catalog
+      description: >-
+        Retrieves inventory and pricing data for all available TI part numbers.
+        Rate limited to 1 request every 4 hours (6 per day). Returns the full
+        catalog for bulk import use cases.
+      tags:
+        - Products
+      parameters:
+        - name: currency
+          in: query
+          required: false
+          description: Currency code for pricing data
+          schema:
+            type: string
+            default: USD
+      responses:
+        '200':
+          description: Full product catalog with inventory and pricing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProductInventory'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+
+  /orders:
+    post:
+      operationId: createOrder
+      summary: Create Order
+      description: >-
+        Creates a new TI store order for one or more part numbers. Returns
+        the order number, line item statuses, pricing, shipping and billing
+        details. Returns HTTP 201 on success.
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '201':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /orders/{orderNumber}:
+    get:
+      operationId: getOrder
+      summary: Get Order
+      description: >-
+        Retrieves the status and details of a specific TI store order by
+        order number. Returns line item statuses, shipping details, and
+        pricing information.
+      tags:
+        - Orders
+      parameters:
+        - name: orderNumber
+          in: path
+          required: true
+          description: TI order number
+          schema:
+            type: string
+          example: 1234567890
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /advanced-ship-notices:
+    get:
+      operationId: getAdvancedShipNotices
+      summary: Get Advanced Ship Notices
+      description: >-
+        Retrieves advanced ship notice (ASN) information for shipments
+        associated with a specific order, including tracking numbers,
+        carrier information, and commercial invoice details.
+      tags:
+        - Shipments
+      parameters:
+        - name: orderNumber
+          in: query
+          required: true
+          description: TI order number to retrieve ASNs for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Advanced ship notice data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  advancedShipNotices:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AdvancedShipNotice'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /financial-documents:
+    get:
+      operationId: getFinancialDocuments
+      summary: Get Financial Documents
+      description: >-
+        Retrieves invoice and financial document information. At least one
+        query parameter is required: orderNumber, financialDocumentNumber,
+        deliveryNumber, or customerPurchaseOrderNumber. Documents are
+        available after TI processes shipment.
+      tags:
+        - Financial
+      parameters:
+        - name: orderNumber
+          in: query
+          required: false
+          description: TI order number
+          schema:
+            type: string
+        - name: financialDocumentNumber
+          in: query
+          required: false
+          description: Financial document or invoice number
+          schema:
+            type: string
+        - name: deliveryNumber
+          in: query
+          required: false
+          description: Delivery number
+          schema:
+            type: string
+        - name: customerPurchaseOrderNumber
+          in: query
+          required: false
+          description: Customer purchase order number
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Financial document data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  financialDocuments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FinancialDocument'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://transact.ti.com/v1/oauth/accesstoken
+          scopes: {}
+      description: >-
+        OAuth 2.0 client credentials flow. Obtain access token using
+        client_id and client_secret from your myTI company account.
+
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid or missing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+
+    PriceBreak:
+      type: object
+      description: Quantity-based price break for a TI part.
+      properties:
+        priceBreakQuantity:
+          type: integer
+          description: Minimum quantity for this price tier
+        price:
+          type: number
+          format: decimal
+          description: Unit price at this quantity break
+
+    Pricing:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: Currency code (e.g., USD)
+        priceBreaks:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceBreak'
+
+    FutureInventory:
+      type: object
+      properties:
+        forecastQuantity:
+          type: integer
+          nullable: true
+          description: Forecasted available quantity
+        forecastDate:
+          type: string
+          description: Expected availability date
+
+    ProductInventory:
+      type: object
+      description: Inventory, pricing, and metadata for a TI part number.
+      properties:
+        tiPartNumber:
+          type: string
+          description: TI part number (OPN)
+        genericPartNumber:
+          type: string
+          description: Generic/base part number
+        description:
+          type: string
+          description: Part description
+        quantity:
+          type: integer
+          description: Current available stock quantity
+        limit:
+          type: integer
+          description: Maximum quantity per order
+        minimumOrderQuantity:
+          type: integer
+          description: Minimum order quantity
+        standardPackQuantity:
+          type: integer
+          description: Standard packaging quantity
+        lifeCycle:
+          type: string
+          description: Product lifecycle status (e.g., Active, NRND, Obsolete)
+        eccn:
+          type: string
+          description: Export Control Classification Number
+        htsCode:
+          type: string
+          description: Harmonized Tariff Schedule code
+        pinCount:
+          type: integer
+          description: Number of pins
+        packageType:
+          type: string
+          description: Package type (e.g., SOIC, QFP)
+        packageCarrier:
+          type: string
+          description: Package carrier type (e.g., Tape and Reel)
+        customReel:
+          type: boolean
+          description: Whether custom reel is available
+        pricing:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pricing'
+        futureInventory:
+          type: array
+          items:
+            $ref: '#/components/schemas/FutureInventory'
+
+    OrderLineItem:
+      type: object
+      properties:
+        customerLineItemNumber:
+          type: integer
+          description: Customer-assigned line item number
+        tiPartNumber:
+          type: string
+          description: TI part number to order
+        customerPartNumber:
+          type: string
+          description: Customer's internal part number (optional)
+        customReelIndicator:
+          type: boolean
+          description: Request custom reel packaging
+        quantity:
+          type: integer
+          description: Order quantity
+        customerItemComments:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+
+    OrderRequest:
+      type: object
+      required:
+        - checkoutProfileId
+        - lineItems
+      properties:
+        checkoutProfileId:
+          type: string
+          description: Checkout profile ID from your TI account
+        customerPurchaseOrderNumber:
+          type: string
+          description: Your internal purchase order number
+        purchaseOrderDate:
+          type: string
+          format: date
+          description: Purchase order date in ISO 8601 format
+        endCustomerCompanyName:
+          type: string
+          description: End customer company name (for export compliance)
+        expediteShipping:
+          type: boolean
+          description: Request expedited shipping
+          default: false
+        customerOrderComments:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+        lineItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLineItem'
+
+    OrderResponseLineItem:
+      type: object
+      properties:
+        tiPartNumber:
+          type: string
+        tiPartDescription:
+          type: string
+        quantity:
+          type: integer
+        status:
+          type: string
+        unitPrice:
+          type: number
+        customReelIndicator:
+          type: boolean
+
+    Address:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        company:
+          type: string
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+
+    OrderResponse:
+      type: object
+      properties:
+        orderNumber:
+          type: string
+          description: TI-assigned order number
+        orderStatus:
+          type: string
+          description: Current order status
+        customerPurchaseOrderNumber:
+          type: string
+        orderPlacedTime:
+          type: string
+          format: date-time
+        subTotal:
+          type: number
+        totalPrice:
+          type: number
+        totalTax:
+          type: number
+        totalDeliveryCost:
+          type: number
+        totalDiscount:
+          type: number
+        currencyISO:
+          type: string
+        paymentType:
+          type: string
+        checkoutProfileIdentifier:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/Address'
+        billingAddress:
+          $ref: '#/components/schemas/Address'
+        lineItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderResponseLineItem'
+        orderMessages:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+
+    AdvancedShipNotice:
+      type: object
+      description: Shipment tracking and carrier information for a TI order.
+      properties:
+        asnNumber:
+          type: string
+          description: Advanced Ship Notice number
+        orderNumber:
+          type: string
+        trackingNumber:
+          type: string
+          description: Carrier tracking number
+        carrier:
+          type: string
+          description: Carrier name (e.g., FedEx, UPS)
+        shipDate:
+          type: string
+          format: date
+        estimatedDeliveryDate:
+          type: string
+          format: date
+        lineItems:
+          type: array
+          items:
+            type: object
+            properties:
+              tiPartNumber:
+                type: string
+              quantity:
+                type: integer
+
+    FinancialDocument:
+      type: object
+      description: Invoice and financial document from TI.
+      properties:
+        financialDocumentNumber:
+          type: string
+          description: Invoice or financial document number
+        orderNumber:
+          type: string
+        deliveryNumber:
+          type: string
+        invoiceAmount:
+          type: number
+        invoiceDate:
+          type: string
+          format: date
+        currencyISO:
+          type: string
+        documentType:
+          type: string
+          description: Type of financial document (e.g., Invoice, Credit Memo)

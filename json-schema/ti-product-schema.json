@@ -1,0 +1,172 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/api-evangelist/texas-instruments/blob/main/json-schema/ti-product-schema.json",
+  "title": "TI Product",
+  "description": "Schema for a Texas Instruments semiconductor product, including inventory, pricing, parametric data, and lifecycle information.",
+  "type": "object",
+  "properties": {
+    "tiPartNumber": {
+      "type": "string",
+      "description": "Texas Instruments Orderable Part Number (OPN). Unique identifier for a specific package and temperature variant."
+    },
+    "genericPartNumber": {
+      "type": "string",
+      "description": "Base/generic part number without variant suffix."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable product description."
+    },
+    "packageType": {
+      "type": "string",
+      "description": "Semiconductor package type (e.g., SOIC, QFN, DIP)."
+    },
+    "pinCount": {
+      "type": "integer",
+      "description": "Number of pins on the package.",
+      "minimum": 1
+    },
+    "lifeCycle": {
+      "type": "string",
+      "description": "Product lifecycle status.",
+      "enum": ["Active", "NRND", "Preview", "Obsolete", "Unknown"]
+    },
+    "quantity": {
+      "type": "integer",
+      "description": "Current available stock at TI.",
+      "minimum": 0
+    },
+    "minimumOrderQuantity": {
+      "type": "integer",
+      "description": "Minimum order quantity (MOQ).",
+      "minimum": 1
+    },
+    "standardPackQuantity": {
+      "type": "integer",
+      "description": "Standard packaging quantity (e.g., tape and reel count)."
+    },
+    "customReel": {
+      "type": "boolean",
+      "description": "Whether custom reel packaging is available."
+    },
+    "eccn": {
+      "type": "string",
+      "description": "Export Control Classification Number for export compliance."
+    },
+    "htsCode": {
+      "type": "string",
+      "description": "Harmonized Tariff Schedule code for customs classification."
+    },
+    "pricing": {
+      "type": "array",
+      "description": "Pricing data by currency with quantity-based price breaks.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string",
+            "description": "ISO 4217 currency code."
+          },
+          "priceBreaks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "priceBreakQuantity": {
+                  "type": "integer",
+                  "description": "Minimum quantity for this price tier."
+                },
+                "price": {
+                  "type": "number",
+                  "description": "Unit price at this quantity break."
+                }
+              },
+              "required": ["priceBreakQuantity", "price"]
+            }
+          }
+        },
+        "required": ["currency", "priceBreaks"]
+      }
+    },
+    "futureInventory": {
+      "type": "array",
+      "description": "Forecasted future inventory availability.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "forecastQuantity": {
+            "type": ["integer", "null"],
+            "description": "Expected available quantity."
+          },
+          "forecastDate": {
+            "type": "string",
+            "description": "Expected availability date."
+          }
+        }
+      }
+    },
+    "parametricData": {
+      "type": "array",
+      "description": "Technical specifications and electrical parameters.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "parameterName": {
+            "type": "string",
+            "description": "Parameter name (e.g., Supply Voltage (Max), Bandwidth)."
+          },
+          "value": {
+            "type": "string",
+            "description": "Parameter value."
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unit of measurement."
+          }
+        },
+        "required": ["parameterName", "value"]
+      }
+    },
+    "qualityData": {
+      "type": "object",
+      "description": "Quality and reliability certification data.",
+      "properties": {
+        "qualificationStatus": {
+          "type": "string",
+          "description": "Qualification level (e.g., Qualified, Automotive Grade)."
+        },
+        "moistureSensitivityLevel": {
+          "type": "string",
+          "description": "MSL rating per IPC/JEDEC J-STD-020."
+        },
+        "rohs": {
+          "type": "boolean",
+          "description": "RoHS compliant."
+        },
+        "aecQ100": {
+          "type": "boolean",
+          "description": "AEC-Q100 automotive qualified."
+        }
+      }
+    },
+    "productFamily": {
+      "type": "string",
+      "description": "TI product family name."
+    },
+    "tiProductType": {
+      "type": "string",
+      "description": "TI product type category."
+    },
+    "dataSheetUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the product datasheet PDF."
+    },
+    "productPageUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the TI product page on ti.com."
+    }
+  },
+  "required": ["tiPartNumber"]
+}

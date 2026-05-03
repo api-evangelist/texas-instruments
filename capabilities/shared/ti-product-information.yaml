@@ -1,0 +1,133 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Texas Instruments Product Information API"
+  description: "TI Product Information API for accessing semiconductor parametric data, quality certifications, and product specifications."
+  tags:
+    - Texas Instruments
+    - Product Data
+    - Semiconductors
+    - Parametric
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TI_ACCESS_TOKEN: TI_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: ti-product-info
+      baseUri: https://transact.ti.com/v1
+      description: "Texas Instruments product information and parametric data API"
+      authentication:
+        type: bearer
+        token: "{{TI_ACCESS_TOKEN}}"
+      resources:
+        - name: products
+          path: /products/{partNumber}
+          description: "Get product details and parametric data"
+          operations:
+            - name: get-product-information
+              method: GET
+              description: "Get basic product details and parametric data (3000/day limit)"
+              inputParameters:
+                - name: partNumber
+                  in: path
+                  type: string
+                  required: true
+                  description: "TI part number"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: products-extended
+          path: /products-extended/{partNumber}
+          description: "Get comprehensive product data including quality/reliability"
+          operations:
+            - name: get-product-information-extended
+              method: GET
+              description: "Get comprehensive product data including quality/reliability (1500/day limit)"
+              inputParameters:
+                - name: partNumber
+                  in: path
+                  type: string
+                  required: true
+                  description: "TI part number"
+                - name: page
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Page number (0-indexed)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8101
+      namespace: ti-product-info-api
+      resources:
+        - path: /v1/product-info/{partNumber}
+          name: product-info
+          description: "TI product information"
+          operations:
+            - method: GET
+              name: get-product-info
+              description: "Get product details and parametric data"
+              call: "ti-product-info.get-product-information"
+              with:
+                partNumber: "rest.partNumber"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/product-info-extended/{partNumber}
+          name: product-info-extended
+          description: "TI product extended information"
+          operations:
+            - method: GET
+              name: get-product-info-extended
+              description: "Get comprehensive product data with quality information"
+              call: "ti-product-info.get-product-information-extended"
+              with:
+                partNumber: "rest.partNumber"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9101
+      namespace: ti-product-info-mcp
+      transport: http
+      tools:
+        - name: get-product-information
+          description: "Get TI semiconductor product details and parametric specifications"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "ti-product-info.get-product-information"
+          with:
+            partNumber: "tools.partNumber"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-product-information-extended
+          description: "Get comprehensive TI product data including quality and reliability certifications"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "ti-product-info.get-product-information-extended"
+          with:
+            partNumber: "tools.partNumber"
+            page: "tools.page"
+          outputParameters:
+            - type: object
+              mapping: "$."

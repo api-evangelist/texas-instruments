@@ -1,0 +1,116 @@
+{
+  "@context": {
+    "@vocab": "https://schema.ti.com/api/v1/",
+    "schema": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gs1": "https://www.gs1.org/voc/",
+
+    "Product": "schema:Product",
+    "tiPartNumber": {
+      "@id": "schema:sku",
+      "@type": "xsd:string"
+    },
+    "genericPartNumber": {
+      "@id": "schema:productID",
+      "@type": "xsd:string"
+    },
+    "description": "schema:description",
+    "packageType": {
+      "@id": "https://schema.ti.com/api/v1/packageType",
+      "@type": "xsd:string"
+    },
+    "pinCount": {
+      "@id": "https://schema.ti.com/api/v1/pinCount",
+      "@type": "xsd:integer"
+    },
+    "lifeCycle": {
+      "@id": "schema:itemCondition",
+      "@type": "xsd:string"
+    },
+    "quantity": {
+      "@id": "schema:inventoryLevel",
+      "@type": "xsd:integer"
+    },
+    "minimumOrderQuantity": {
+      "@id": "schema:orderQuantity",
+      "@type": "xsd:integer"
+    },
+    "pricing": {
+      "@id": "schema:offers",
+      "@type": "@id"
+    },
+    "priceBreaks": {
+      "@id": "schema:priceSpecification",
+      "@type": "@id"
+    },
+    "priceBreakQuantity": {
+      "@id": "schema:eligibleQuantity",
+      "@type": "xsd:integer"
+    },
+    "price": {
+      "@id": "schema:price",
+      "@type": "xsd:decimal"
+    },
+    "currency": {
+      "@id": "schema:priceCurrency",
+      "@type": "xsd:string"
+    },
+    "eccn": {
+      "@id": "https://schema.ti.com/api/v1/eccn",
+      "@type": "xsd:string"
+    },
+    "htsCode": {
+      "@id": "gs1:additionalProductDescription",
+      "@type": "xsd:string"
+    },
+    "rohs": {
+      "@id": "https://schema.ti.com/api/v1/rohsCompliant",
+      "@type": "xsd:boolean"
+    },
+    "aecQ100": {
+      "@id": "https://schema.ti.com/api/v1/aecQ100",
+      "@type": "xsd:boolean"
+    },
+    "Order": "schema:Order",
+    "orderNumber": {
+      "@id": "schema:orderNumber",
+      "@type": "xsd:string"
+    },
+    "orderStatus": {
+      "@id": "schema:orderStatus",
+      "@type": "xsd:string"
+    },
+    "lineItems": {
+      "@id": "schema:orderedItem",
+      "@type": "@id"
+    },
+    "totalPrice": {
+      "@id": "schema:totalPaymentDue",
+      "@type": "xsd:decimal"
+    },
+    "shippingAddress": {
+      "@id": "schema:deliveryAddress",
+      "@type": "@id"
+    },
+    "billingAddress": {
+      "@id": "schema:billingAddress",
+      "@type": "@id"
+    },
+    "trackingNumber": {
+      "@id": "schema:trackingNumber",
+      "@type": "xsd:string"
+    },
+    "carrier": {
+      "@id": "schema:deliveryMethod",
+      "@type": "xsd:string"
+    },
+    "dataSheetUrl": {
+      "@id": "schema:subjectOf",
+      "@type": "@id"
+    },
+    "productPageUrl": {
+      "@id": "schema:url",
+      "@type": "@id"
+    }
+  }
+}
