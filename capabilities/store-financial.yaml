@@ -1,0 +1,97 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Texas Instruments Store API — Financial
+  description: 'Texas Instruments Store API — Financial. 1 operations. Lead operation: Get Financial Documents. Self-contained
+    Naftiko capability covering one Texas Instruments business surface.'
+  tags:
+  - Texas Instruments
+  - Financial
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEXAS_INSTRUMENTS_API_KEY: TEXAS_INSTRUMENTS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: store-financial
+    baseUri: https://transact.ti.com/v2/store
+    description: Texas Instruments Store API — Financial business capability. Self-contained, no shared references.
+    resources:
+    - name: financial-documents
+      path: /financial-documents
+      operations:
+      - name: getfinancialdocuments
+        method: GET
+        description: Get Financial Documents
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderNumber
+          in: query
+          type: string
+          description: TI order number
+        - name: financialDocumentNumber
+          in: query
+          type: string
+          description: Financial document or invoice number
+        - name: deliveryNumber
+          in: query
+          type: string
+          description: Delivery number
+        - name: customerPurchaseOrderNumber
+          in: query
+          type: string
+          description: Customer purchase order number
+    authentication:
+      type: bearer
+      token: '{{env.TEXAS_INSTRUMENTS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: store-financial-rest
+    port: 8080
+    description: REST adapter for Texas Instruments Store API — Financial. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/financial-documents
+      name: financial-documents
+      description: REST surface for financial-documents.
+      operations:
+      - method: GET
+        name: getfinancialdocuments
+        description: Get Financial Documents
+        call: store-financial.getfinancialdocuments
+        with:
+          orderNumber: rest.orderNumber
+          financialDocumentNumber: rest.financialDocumentNumber
+          deliveryNumber: rest.deliveryNumber
+          customerPurchaseOrderNumber: rest.customerPurchaseOrderNumber
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: store-financial-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Texas Instruments Store API — Financial. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-financial-documents
+      description: Get Financial Documents
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-financial.getfinancialdocuments
+      with:
+        orderNumber: tools.orderNumber
+        financialDocumentNumber: tools.financialDocumentNumber
+        deliveryNumber: tools.deliveryNumber
+        customerPurchaseOrderNumber: tools.customerPurchaseOrderNumber
+      outputParameters:
+      - type: object
+        mapping: $.

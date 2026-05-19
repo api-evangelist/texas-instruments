@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Texas Instruments Store API — Shipments
+  description: 'Texas Instruments Store API — Shipments. 1 operations. Lead operation: Get Advanced Ship Notices. Self-contained
+    Naftiko capability covering one Texas Instruments business surface.'
+  tags:
+  - Texas Instruments
+  - Shipments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEXAS_INSTRUMENTS_API_KEY: TEXAS_INSTRUMENTS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: store-shipments
+    baseUri: https://transact.ti.com/v2/store
+    description: Texas Instruments Store API — Shipments business capability. Self-contained, no shared references.
+    resources:
+    - name: advanced-ship-notices
+      path: /advanced-ship-notices
+      operations:
+      - name: getadvancedshipnotices
+        method: GET
+        description: Get Advanced Ship Notices
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderNumber
+          in: query
+          type: string
+          description: TI order number to retrieve ASNs for
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEXAS_INSTRUMENTS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: store-shipments-rest
+    port: 8080
+    description: REST adapter for Texas Instruments Store API — Shipments. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/advanced-ship-notices
+      name: advanced-ship-notices
+      description: REST surface for advanced-ship-notices.
+      operations:
+      - method: GET
+        name: getadvancedshipnotices
+        description: Get Advanced Ship Notices
+        call: store-shipments.getadvancedshipnotices
+        with:
+          orderNumber: rest.orderNumber
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: store-shipments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Texas Instruments Store API — Shipments. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-advanced-ship-notices
+      description: Get Advanced Ship Notices
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-shipments.getadvancedshipnotices
+      with:
+        orderNumber: tools.orderNumber
+      outputParameters:
+      - type: object
+        mapping: $.

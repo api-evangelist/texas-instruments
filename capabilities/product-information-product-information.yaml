@@ -1,0 +1,81 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Texas Instruments Product Information API — Product Information
+  description: 'Texas Instruments Product Information API — Product Information. 1 operations. Lead operation: Get Product
+    Information. Self-contained Naftiko capability covering one Texas Instruments business surface.'
+  tags:
+  - Texas Instruments
+  - Product Information
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEXAS_INSTRUMENTS_API_KEY: TEXAS_INSTRUMENTS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: product-information-product-information
+    baseUri: https://transact.ti.com/v1
+    description: Texas Instruments Product Information API — Product Information business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: products-partNumber
+      path: /products/{partNumber}
+      operations:
+      - name: getproductinformation
+        method: GET
+        description: Get Product Information
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: partNumber
+          in: path
+          type: string
+          description: TI part number. URL-encode special characters (e.g., /NOPB becomes %2FNOPB).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEXAS_INSTRUMENTS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: product-information-product-information-rest
+    port: 8080
+    description: REST adapter for Texas Instruments Product Information API — Product Information. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/products/{partnumber}
+      name: products-partnumber
+      description: REST surface for products-partNumber.
+      operations:
+      - method: GET
+        name: getproductinformation
+        description: Get Product Information
+        call: product-information-product-information.getproductinformation
+        with:
+          partNumber: rest.partNumber
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: product-information-product-information-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Texas Instruments Product Information API — Product Information. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: get-product-information
+      description: Get Product Information
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: product-information-product-information.getproductinformation
+      with:
+        partNumber: tools.partNumber
+      outputParameters:
+      - type: object
+        mapping: $.

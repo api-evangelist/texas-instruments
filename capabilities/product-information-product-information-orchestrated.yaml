@@ -1,0 +1,87 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Texas Instruments Product Information API — Product Information Orchestrated
+  description: 'Texas Instruments Product Information API — Product Information Orchestrated. 1 operations. Lead operation:
+    Get Product Information (Orchestrated). Self-contained Naftiko capability covering one Texas Instruments business surface.'
+  tags:
+  - Texas Instruments
+  - Product Information Orchestrated
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEXAS_INSTRUMENTS_API_KEY: TEXAS_INSTRUMENTS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: product-information-product-information-orchestrated
+    baseUri: https://transact.ti.com/v1
+    description: Texas Instruments Product Information API — Product Information Orchestrated business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: products-extended-partNumber
+      path: /products-extended/{partNumber}
+      operations:
+      - name: getproductinformationorchestrated
+        method: GET
+        description: Get Product Information (Orchestrated)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: partNumber
+          in: path
+          type: string
+          description: TI part number. URL-encode special characters.
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: Page number for paginated results (0-indexed)
+    authentication:
+      type: bearer
+      token: '{{env.TEXAS_INSTRUMENTS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: product-information-product-information-orchestrated-rest
+    port: 8080
+    description: REST adapter for Texas Instruments Product Information API — Product Information Orchestrated. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/products-extended/{partnumber}
+      name: products-extended-partnumber
+      description: REST surface for products-extended-partNumber.
+      operations:
+      - method: GET
+        name: getproductinformationorchestrated
+        description: Get Product Information (Orchestrated)
+        call: product-information-product-information-orchestrated.getproductinformationorchestrated
+        with:
+          partNumber: rest.partNumber
+          page: rest.page
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: product-information-product-information-orchestrated-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Texas Instruments Product Information API — Product Information Orchestrated. One tool per
+      consumed operation, routed inline through this capability's consumes block.
+    tools:
+    - name: get-product-information-orchestrated
+      description: Get Product Information (Orchestrated)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: product-information-product-information-orchestrated.getproductinformationorchestrated
+      with:
+        partNumber: tools.partNumber
+        page: tools.page
+      outputParameters:
+      - type: object
+        mapping: $.

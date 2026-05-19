@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Texas Instruments Store API — Orders
+  description: 'Texas Instruments Store API — Orders. 2 operations. Lead operation: Create Order. Self-contained Naftiko capability
+    covering one Texas Instruments business surface.'
+  tags:
+  - Texas Instruments
+  - Orders
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEXAS_INSTRUMENTS_API_KEY: TEXAS_INSTRUMENTS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: store-orders
+    baseUri: https://transact.ti.com/v2/store
+    description: Texas Instruments Store API — Orders business capability. Self-contained, no shared references.
+    resources:
+    - name: orders
+      path: /orders
+      operations:
+      - name: createorder
+        method: POST
+        description: Create Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: orders-orderNumber
+      path: /orders/{orderNumber}
+      operations:
+      - name: getorder
+        method: GET
+        description: Get Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderNumber
+          in: path
+          type: string
+          description: TI order number
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TEXAS_INSTRUMENTS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: store-orders-rest
+    port: 8080
+    description: REST adapter for Texas Instruments Store API — Orders. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/orders
+      name: orders
+      description: REST surface for orders.
+      operations:
+      - method: POST
+        name: createorder
+        description: Create Order
+        call: store-orders.createorder
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orders/{ordernumber}
+      name: orders-ordernumber
+      description: REST surface for orders-orderNumber.
+      operations:
+      - method: GET
+        name: getorder
+        description: Get Order
+        call: store-orders.getorder
+        with:
+          orderNumber: rest.orderNumber
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: store-orders-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Texas Instruments Store API — Orders. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: create-order
+      description: Create Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: store-orders.createorder
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-order
+      description: Get Order
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-orders.getorder
+      with:
+        orderNumber: tools.orderNumber
+      outputParameters:
+      - type: object
+        mapping: $.

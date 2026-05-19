@@ -1,0 +1,127 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Texas Instruments Store API — Products
+  description: 'Texas Instruments Store API — Products. 2 operations. Lead operation: Get Product Catalog. Self-contained
+    Naftiko capability covering one Texas Instruments business surface.'
+  tags:
+  - Texas Instruments
+  - Products
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TEXAS_INSTRUMENTS_API_KEY: TEXAS_INSTRUMENTS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: store-products
+    baseUri: https://transact.ti.com/v2/store
+    description: Texas Instruments Store API — Products business capability. Self-contained, no shared references.
+    resources:
+    - name: products-catalog
+      path: /products/catalog
+      operations:
+      - name: getproductcatalog
+        method: GET
+        description: Get Product Catalog
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: currency
+          in: query
+          type: string
+          description: Currency code for pricing data
+    - name: products-partNumber
+      path: /products/{partNumber}
+      operations:
+      - name: getproductinventoryandpricing
+        method: GET
+        description: Get Product Inventory and Pricing
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: partNumber
+          in: path
+          type: string
+          description: TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB).
+          required: true
+        - name: currency
+          in: query
+          type: string
+          description: Currency code for pricing data (e.g., USD, EUR)
+    authentication:
+      type: bearer
+      token: '{{env.TEXAS_INSTRUMENTS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: store-products-rest
+    port: 8080
+    description: REST adapter for Texas Instruments Store API — Products. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/products/catalog
+      name: products-catalog
+      description: REST surface for products-catalog.
+      operations:
+      - method: GET
+        name: getproductcatalog
+        description: Get Product Catalog
+        call: store-products.getproductcatalog
+        with:
+          currency: rest.currency
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/products/{partnumber}
+      name: products-partnumber
+      description: REST surface for products-partNumber.
+      operations:
+      - method: GET
+        name: getproductinventoryandpricing
+        description: Get Product Inventory and Pricing
+        call: store-products.getproductinventoryandpricing
+        with:
+          partNumber: rest.partNumber
+          currency: rest.currency
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: store-products-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Texas Instruments Store API — Products. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-product-catalog
+      description: Get Product Catalog
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-products.getproductcatalog
+      with:
+        currency: tools.currency
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-product-inventory-and-pricing
+      description: Get Product Inventory and Pricing
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-products.getproductinventoryandpricing
+      with:
+        partNumber: tools.partNumber
+        currency: tools.currency
+      outputParameters:
+      - type: object
+        mapping: $.
