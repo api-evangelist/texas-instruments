@@ -1,81 +1,85 @@
-# Texas Instruments
+# Texas Instruments (texas-instruments)
 
-Texas Instruments is an American technology company that designs and manufactures semiconductors and integrated circuits for industrial, automotive, personal electronics, and enterprise systems markets. TI provides a developer API portal at api-portal.ti.com offering Store APIs for inventory, ordering, and shipment tracking, as well as Product Information APIs for parametric data and quality certifications.
+Texas Instruments is an American technology company that designs and manufactures semiconductors and various integrated circuits for industrial, automotive, personal electronics, communications equipment, and enterprise systems markets. TI provides a developer API portal at api-portal.ti.com offering Store APIs for inventory, ordering, and shipment tracking, as well as Product Information APIs for accessing parametric data, quality, and reliability information on TI's extensive semiconductor catalog.
 
-**Website:** https://www.texas-instruments.com
-**Developer Portal:** https://api-portal.ti.com/
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/texas-instruments/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/texas-instruments/refs/heads/main/apis.yml)
+
+## Scope
+
+- **Type:** Index
+
+## Tags
+
+- Electronics
+- Ordering
+- Semiconductors
+- Supply Chain
+
+## Timestamps
+
+- **Created:** 2026-03-21
+- **Modified:** 2026-05-19
 
 ## APIs
 
-### [Texas Instruments Store API](https://www.ti.com/developer-api/store-api/getting-started.html)
-Enterprise ordering and inventory API. Real-time inventory/pricing, order creation, ASN shipment tracking, and invoice retrieval. Base URL: `https://transact.ti.com/v2/store`
+### Texas Instruments Store API
 
-**Tags:** Inventory, Ordering, Semiconductors, Supply Chain
+The TI Store API enables enterprise customers to integrate with TI's ordering platform. It provides real-time inventory and pricing data, order creation and retrieval, advanced ship notice (ASN) tracking, and financial document retrieval. OAuth 2.0 client credentials authentication against transact.ti.com. Production base URL: https://transact.ti.com/v2/store
 
-**Properties:**
+- **Human URL:** [https://www.ti.com/developer-api/store-api/getting-started.html](https://www.ti.com/developer-api/store-api/getting-started.html)
+- **Base URL:** `https://transact.ti.com/v2/store`
+
+#### Tags
+
+- Inventory
+- Ordering
+- Semiconductors
+- Supply Chain
+
+#### Properties
+
 - [Documentation](https://www.ti.com/developer-api/store-api/getting-started.html)
-- [OpenAPI](openapi/texas-instruments-store-openapi.yml)
+- [OpenAPI](openapi/texas-instruments-store-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/texas-instruments-store.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/texas-instruments-store.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 - [Portal](https://api-portal.ti.com/)
 
-### [Texas Instruments Product Information API](https://www.ti.com/developer-api/product-information-api-suite/getting-started.html)
-Product catalog, parametric data, quality, and reliability information. Two variants: standard (3,000/day) and orchestrated (1,500/day). Base URL: `https://transact.ti.com/v1`
+### Texas Instruments Product Information API
 
-**Tags:** Electronics, Product Data, Semiconductors
+The TI Product Information API suite provides access to TI's semiconductor product catalog including parametric data, quality and reliability information. Available as standard (multiple calls, 3,000/day limit) and orchestrated (single call, 1,500/day limit) variants. Base URL: https://transact.ti.com/v1
 
-**Properties:**
+- **Human URL:** [https://www.ti.com/developer-api/product-information-api-suite/getting-started.html](https://www.ti.com/developer-api/product-information-api-suite/getting-started.html)
+- **Base URL:** `https://transact.ti.com/v1`
+
+#### Tags
+
+- Electronics
+- Product Data
+- Semiconductors
+
+#### Properties
+
 - [Documentation](https://www.ti.com/developer-api/product-information-api-suite/getting-started.html)
-- [OpenAPI](openapi/texas-instruments-product-information-openapi.yml)
+- [OpenAPI](openapi/texas-instruments-product-information-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/texas-instruments-product-information.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/texas-instruments-product-information.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 - [Portal](https://api-portal.ti.com/)
-
-## Artifacts
-
-### OpenAPI Specifications
-
-- [openapi/texas-instruments-store-openapi.yml](openapi/texas-instruments-store-openapi.yml) — TI Store API (inventory, orders, ASN, invoices)
-- [openapi/texas-instruments-product-information-openapi.yml](openapi/texas-instruments-product-information-openapi.yml) — TI Product Information API
-
-### Spectral Rules
-
-- [rules/texas-instruments-rules.yml](rules/texas-instruments-rules.yml) — Spectral ruleset enforcing TI API conventions
-
-### Naftiko Capabilities
-
-**Shared Definitions:**
-- [capabilities/shared/ti-store.yaml](capabilities/shared/ti-store.yaml) — TI Store API consumed definition
-- [capabilities/shared/ti-product-information.yaml](capabilities/shared/ti-product-information.yaml) — TI Product Information API consumed definition
-
-**Workflow Capabilities:**
-- [capabilities/semiconductor-procurement.yaml](capabilities/semiconductor-procurement.yaml) — Unified semiconductor procurement workflow (7 MCP tools, REST on :8080)
-
-### JSON Schema
-
-- [json-schema/ti-product-schema.json](json-schema/ti-product-schema.json) — Schema for TI semiconductor products with pricing, parametric, and quality data
-
-### JSON Structure
-
-- [json-structure/ti-product-structure.json](json-structure/ti-product-structure.json) — TI API resource structure documentation
-
-### JSON-LD Context
-
-- [json-ld/texas-instruments-context.jsonld](json-ld/texas-instruments-context.jsonld) — Linked data context mapping TI vocabulary to schema.org
-
-### Vocabulary
-
-- [vocabulary/texas-instruments-vocabulary.yml](vocabulary/texas-instruments-vocabulary.yml) — TI domain vocabulary (15 terms covering products, ordering, compliance)
-
-### Examples
-
-- [examples/texas-instruments-store-get-product-example.json](examples/texas-instruments-store-get-product-example.json)
-- [examples/texas-instruments-store-create-order-example.json](examples/texas-instruments-store-create-order-example.json)
 
 ## Common Properties
 
+- [GitHub Organization](https://github.com/TexasInstruments)
+- [LinkedIn](https://www.linkedin.com/company/texas-instruments)
 - [Website](https://www.texas-instruments.com)
-- [Developer Portal](https://api-portal.ti.com/)
+- [Developer  Portal](https://api-portal.ti.com/)
 - [Documentation](https://www.ti.com/developer-api/overview.html)
 - [Getting Started](https://api-portal.ti.com/store-api-getstarted)
 - [Support](https://api-portal.ti.com/support)
-- [FAQ](https://api-portal.ti.com/faq)
+- [F A Q](https://api-portal.ti.com/faq)
+- [OpenAPI](openapi/texas-instruments-store-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [OpenAPI](openapi/texas-instruments-product-information-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [JSON Schema](json-schema/ti-product-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON-LD](json-ld/texas-instruments-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Vocabulary](vocabulary/texas-instruments-vocabulary.yml)
 
 ## Maintainers
 

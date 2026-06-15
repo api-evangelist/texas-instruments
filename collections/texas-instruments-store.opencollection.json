@@ -1,0 +1,187 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Texas Instruments Store API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://transact.ti.com/v1/oauth/accesstoken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Product Inventory and Pricing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://transact.ti.com/v2/store/products/:partNumber",
+            "params": [
+              {
+                "name": "partNumber",
+                "value": "LM358BIDR",
+                "type": "path",
+                "description": "TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency code for pricing data (e.g., USD, EUR)"
+              }
+            ]
+          },
+          "docs": "Retrieves real-time inventory availability, pricing breaks, future inventory forecasts, and product metadata for a specific TI part number. Part numbers containing /NOPB must be URL-encoded (/ becomes %2F)."
+        },
+        {
+          "info": {
+            "name": "Get Product Catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://transact.ti.com/v2/store/products/catalog",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency code for pricing data"
+              }
+            ]
+          },
+          "docs": "Retrieves inventory and pricing data for all available TI part numbers. Rate limited to 1 request every 4 hours (6 per day). Returns the full catalog for bulk import use cases."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://transact.ti.com/v2/store/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new TI store order for one or more part numbers. Returns the order number, line item statuses, pricing, shipping and billing details. Returns HTTP 201 on success."
+        },
+        {
+          "info": {
+            "name": "Get Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://transact.ti.com/v2/store/orders/:orderNumber",
+            "params": [
+              {
+                "name": "orderNumber",
+                "value": "1234567890",
+                "type": "path",
+                "description": "TI order number"
+              }
+            ]
+          },
+          "docs": "Retrieves the status and details of a specific TI store order by order number. Returns line item statuses, shipping details, and pricing information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Shipments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Advanced Ship Notices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://transact.ti.com/v2/store/advanced-ship-notices",
+            "params": [
+              {
+                "name": "orderNumber",
+                "value": "",
+                "type": "query",
+                "description": "TI order number to retrieve ASNs for"
+              }
+            ]
+          },
+          "docs": "Retrieves advanced ship notice (ASN) information for shipments associated with a specific order, including tracking numbers, carrier information, and commercial invoice details."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Financial",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Financial Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://transact.ti.com/v2/store/financial-documents",
+            "params": [
+              {
+                "name": "orderNumber",
+                "value": "",
+                "type": "query",
+                "description": "TI order number"
+              },
+              {
+                "name": "financialDocumentNumber",
+                "value": "",
+                "type": "query",
+                "description": "Financial document or invoice number"
+              },
+              {
+                "name": "deliveryNumber",
+                "value": "",
+                "type": "query",
+                "description": "Delivery number"
+              },
+              {
+                "name": "customerPurchaseOrderNumber",
+                "value": "",
+                "type": "query",
+                "description": "Customer purchase order number"
+              }
+            ]
+          },
+          "docs": "Retrieves invoice and financial document information. At least one query parameter is required: orderNumber, financialDocumentNumber, deliveryNumber, or customerPurchaseOrderNumber. Documents are available after TI processes shipment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

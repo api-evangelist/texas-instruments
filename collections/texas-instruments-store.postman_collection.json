@@ -1,0 +1,1384 @@
+{
+  "item": [
+    {
+      "id": "3a30cedb-58da-4907-bfed-cc893e59ed91",
+      "name": "Products",
+      "description": {
+        "content": "Product inventory, pricing, and catalog endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dacd19ab-df1b-4bb9-8d12-10132ed08cd4",
+          "name": "Get Product Inventory and Pricing",
+          "request": {
+            "name": "Get Product Inventory and Pricing",
+            "description": {
+              "content": "Retrieves real-time inventory availability, pricing breaks, future inventory forecasts, and product metadata for a specific TI part number. Part numbers containing /NOPB must be URL-encoded (/ becomes %2F).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":partNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "USD",
+                  "description": "Currency code for pricing data (e.g., USD, EUR)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partNumber",
+                  "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "51a43450-b9fa-47cd-83c4-6a7f89d4c1bb",
+              "name": "Product inventory and pricing data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tiPartNumber\": \"string\",\n  \"genericPartNumber\": \"string\",\n  \"description\": \"string\",\n  \"quantity\": 4231,\n  \"limit\": 8045,\n  \"minimumOrderQuantity\": 6605,\n  \"standardPackQuantity\": 6109,\n  \"lifeCycle\": \"string\",\n  \"eccn\": \"string\",\n  \"htsCode\": \"string\",\n  \"pinCount\": 5987,\n  \"packageType\": \"string\",\n  \"packageCarrier\": \"string\",\n  \"customReel\": false,\n  \"pricing\": [\n    {\n      \"currency\": \"string\",\n      \"priceBreaks\": [\n        {\n          \"priceBreakQuantity\": 3766,\n          \"price\": 5862.923301662968\n        },\n        {\n          \"priceBreakQuantity\": 4975,\n          \"price\": 6140.287736706837\n        }\n      ]\n    },\n    {\n      \"currency\": \"string\",\n      \"priceBreaks\": [\n        {\n          \"priceBreakQuantity\": 629,\n          \"price\": 5776.155904017885\n        },\n        {\n          \"priceBreakQuantity\": 9820,\n          \"price\": 6293.86272109802\n        }\n      ]\n    }\n  ],\n  \"futureInventory\": [\n    {\n      \"forecastQuantity\": 5111,\n      \"forecastDate\": \"string\"\n    },\n    {\n      \"forecastQuantity\": 6436,\n      \"forecastDate\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d883be5c-0fe3-4c1b-b6e9-8d7489b5a602",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9170af50-cef1-427b-9509-eb59b19142b7",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae1cdddc-6aaf-4acc-892e-4a2d160367b0",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27d57fd0-106d-4640-a194-d88cb963cfc8",
+          "name": "Get Product Catalog",
+          "request": {
+            "name": "Get Product Catalog",
+            "description": {
+              "content": "Retrieves inventory and pricing data for all available TI part numbers. Rate limited to 1 request every 4 hours (6 per day). Returns the full catalog for bulk import use cases.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                "catalog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "USD",
+                  "description": "Currency code for pricing data"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7f4b9030-4fdb-40df-902c-02ca2838c581",
+              "name": "Full product catalog with inventory and pricing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "catalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"products\": [\n    {\n      \"tiPartNumber\": \"string\",\n      \"genericPartNumber\": \"string\",\n      \"description\": \"string\",\n      \"quantity\": 1077,\n      \"limit\": 4638,\n      \"minimumOrderQuantity\": 3406,\n      \"standardPackQuantity\": 9012,\n      \"lifeCycle\": \"string\",\n      \"eccn\": \"string\",\n      \"htsCode\": \"string\",\n      \"pinCount\": 5265,\n      \"packageType\": \"string\",\n      \"packageCarrier\": \"string\",\n      \"customReel\": true,\n      \"pricing\": [\n        {\n          \"currency\": \"string\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"currency\": \"string\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"futureInventory\": [\n        {\n          \"forecastQuantity\": 225,\n          \"forecastDate\": \"string\"\n        },\n        {\n          \"forecastQuantity\": 3096,\n          \"forecastDate\": \"string\"\n        }\n      ]\n    },\n    {\n      \"tiPartNumber\": \"string\",\n      \"genericPartNumber\": \"string\",\n      \"description\": \"string\",\n      \"quantity\": 8181,\n      \"limit\": 5622,\n      \"minimumOrderQuantity\": 2926,\n      \"standardPackQuantity\": 7001,\n      \"lifeCycle\": \"string\",\n      \"eccn\": \"string\",\n      \"htsCode\": \"string\",\n      \"pinCount\": 7662,\n      \"packageType\": \"string\",\n      \"packageCarrier\": \"string\",\n      \"customReel\": true,\n      \"pricing\": [\n        {\n          \"currency\": \"string\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"currency\": \"string\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"futureInventory\": [\n        {\n          \"forecastQuantity\": 1323,\n          \"forecastDate\": \"string\"\n        },\n        {\n          \"forecastQuantity\": 6630,\n          \"forecastDate\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fc07323-a3a3-4815-8470-5313150add36",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "catalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6b328c8-09ad-4e1e-a0a9-d79c8576bcc5",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "catalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "ee1bcdb7-ecb2-4f22-93e1-b26bea660ee7",
+      "name": "Orders",
+      "description": {
+        "content": "Order creation and retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e4e87eb5-59a2-4971-a726-c4edc40ab77b",
+          "name": "Create Order",
+          "request": {
+            "name": "Create Order",
+            "description": {
+              "content": "Creates a new TI store order for one or more part numbers. Returns the order number, line item statuses, pricing, shipping and billing details. Returns HTTP 201 on success.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"checkoutProfileId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"customerPurchaseOrderNumber\": \"<string>\",\n  \"purchaseOrderDate\": \"<date>\",\n  \"endCustomerCompanyName\": \"<string>\",\n  \"expediteShipping\": false,\n  \"customerOrderComments\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e0dc5186-cfbc-4875-9d66-de8fa6ac7ae5",
+              "name": "Order created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"checkoutProfileId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"customerPurchaseOrderNumber\": \"<string>\",\n  \"purchaseOrderDate\": \"<date>\",\n  \"endCustomerCompanyName\": \"<string>\",\n  \"expediteShipping\": false,\n  \"customerOrderComments\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderNumber\": \"string\",\n  \"orderStatus\": \"string\",\n  \"customerPurchaseOrderNumber\": \"string\",\n  \"orderPlacedTime\": \"1949-07-03T22:36:09.051Z\",\n  \"subTotal\": 3248.7276473624192,\n  \"totalPrice\": 1623.3035438457312,\n  \"totalTax\": 3373.328517280705,\n  \"totalDeliveryCost\": 5758.466950649314,\n  \"totalDiscount\": 3550.5345578523397,\n  \"currencyISO\": \"string\",\n  \"paymentType\": \"string\",\n  \"checkoutProfileIdentifier\": \"string\",\n  \"shippingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"company\": \"string\",\n    \"addressLine1\": \"string\",\n    \"addressLine2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"postalCode\": \"string\",\n    \"country\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"billingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"company\": \"string\",\n    \"addressLine1\": \"string\",\n    \"addressLine2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"postalCode\": \"string\",\n    \"country\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"lineItems\": [\n    {\n      \"tiPartNumber\": \"string\",\n      \"tiPartDescription\": \"string\",\n      \"quantity\": 5682,\n      \"status\": \"string\",\n      \"unitPrice\": 4227.875051229494,\n      \"customReelIndicator\": false\n    },\n    {\n      \"tiPartNumber\": \"string\",\n      \"tiPartDescription\": \"string\",\n      \"quantity\": 8501,\n      \"status\": \"string\",\n      \"unitPrice\": 1129.410822662781,\n      \"customReelIndicator\": false\n    }\n  ],\n  \"orderMessages\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f70829f-c386-417b-81bb-1c774141ecbe",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"checkoutProfileId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"customerPurchaseOrderNumber\": \"<string>\",\n  \"purchaseOrderDate\": \"<date>\",\n  \"endCustomerCompanyName\": \"<string>\",\n  \"expediteShipping\": false,\n  \"customerOrderComments\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6163217f-c3c6-43dc-81e4-fa8f41b61442",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"checkoutProfileId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"customerPurchaseOrderNumber\": \"<string>\",\n  \"purchaseOrderDate\": \"<date>\",\n  \"endCustomerCompanyName\": \"<string>\",\n  \"expediteShipping\": false,\n  \"customerOrderComments\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ebba8435-5961-459a-8a48-4ed6936b6a0d",
+          "name": "Get Order",
+          "request": {
+            "name": "Get Order",
+            "description": {
+              "content": "Retrieves the status and details of a specific TI store order by order number. Returns line item statuses, shipping details, and pricing information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderNumber",
+                  "description": "(Required) TI order number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c17d724-43ab-4f38-ba6f-bb81542521c8",
+              "name": "Order details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) TI order number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderNumber\": \"string\",\n  \"orderStatus\": \"string\",\n  \"customerPurchaseOrderNumber\": \"string\",\n  \"orderPlacedTime\": \"1974-07-25T10:54:03.379Z\",\n  \"subTotal\": 5908.575851135087,\n  \"totalPrice\": 2312.296414221847,\n  \"totalTax\": 3706.715152575015,\n  \"totalDeliveryCost\": 3501.8199083973755,\n  \"totalDiscount\": 3781.1313594524763,\n  \"currencyISO\": \"string\",\n  \"paymentType\": \"string\",\n  \"checkoutProfileIdentifier\": \"string\",\n  \"shippingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"company\": \"string\",\n    \"addressLine1\": \"string\",\n    \"addressLine2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"postalCode\": \"string\",\n    \"country\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"billingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"company\": \"string\",\n    \"addressLine1\": \"string\",\n    \"addressLine2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"postalCode\": \"string\",\n    \"country\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"lineItems\": [\n    {\n      \"tiPartNumber\": \"string\",\n      \"tiPartDescription\": \"string\",\n      \"quantity\": 7591,\n      \"status\": \"string\",\n      \"unitPrice\": 7622.620105049064,\n      \"customReelIndicator\": true\n    },\n    {\n      \"tiPartNumber\": \"string\",\n      \"tiPartDescription\": \"string\",\n      \"quantity\": 6783,\n      \"status\": \"string\",\n      \"unitPrice\": 1899.5825344892125,\n      \"customReelIndicator\": false\n    }\n  ],\n  \"orderMessages\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fef17251-0018-48f4-9e76-583c8b02a43d",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) TI order number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6391c69-5e91-4036-8983-7e574bd7642b",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) TI order number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "4be1e7fd-08d1-4b5a-ae4c-1c025879d53a",
+      "name": "Shipments",
+      "description": {
+        "content": "Advanced Ship Notice (ASN) retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9dbe2141-3093-426c-8365-44562c905770",
+          "name": "Get Advanced Ship Notices",
+          "request": {
+            "name": "Get Advanced Ship Notices",
+            "description": {
+              "content": "Retrieves advanced ship notice (ASN) information for shipments associated with a specific order, including tracking numbers, carrier information, and commercial invoice details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "advanced-ship-notices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orderNumber",
+                  "value": "<string>",
+                  "description": "(Required) TI order number to retrieve ASNs for"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ba8f5f7c-3498-4a96-a7a6-2d0d56501297",
+              "name": "Advanced ship notice data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advanced-ship-notices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"advancedShipNotices\": [\n    {\n      \"asnNumber\": \"string\",\n      \"orderNumber\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"carrier\": \"string\",\n      \"shipDate\": \"2022-03-01\",\n      \"estimatedDeliveryDate\": \"1989-06-20\",\n      \"lineItems\": [\n        {\n          \"tiPartNumber\": \"string\",\n          \"quantity\": 5803\n        },\n        {\n          \"tiPartNumber\": \"string\",\n          \"quantity\": 3378\n        }\n      ]\n    },\n    {\n      \"asnNumber\": \"string\",\n      \"orderNumber\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"carrier\": \"string\",\n      \"shipDate\": \"2023-03-19\",\n      \"estimatedDeliveryDate\": \"1988-01-13\",\n      \"lineItems\": [\n        {\n          \"tiPartNumber\": \"string\",\n          \"quantity\": 9086\n        },\n        {\n          \"tiPartNumber\": \"string\",\n          \"quantity\": 6273\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3095bf51-236b-4e4a-a7c9-fc1d59e0dd18",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advanced-ship-notices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a4fa557-cb14-4448-82d7-d3e4782f90b5",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advanced-ship-notices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f0394a92-e3c1-4a38-b1a8-d6db04090a36",
+      "name": "Financial",
+      "description": {
+        "content": "Financial document and invoice retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "da3ada7c-bd18-4632-b3c6-86d34d0163d6",
+          "name": "Get Financial Documents",
+          "request": {
+            "name": "Get Financial Documents",
+            "description": {
+              "content": "Retrieves invoice and financial document information. At least one query parameter is required: orderNumber, financialDocumentNumber, deliveryNumber, or customerPurchaseOrderNumber. Documents are available after TI processes shipment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "financial-documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orderNumber",
+                  "value": "<string>",
+                  "description": "TI order number"
+                },
+                {
+                  "disabled": false,
+                  "key": "financialDocumentNumber",
+                  "value": "<string>",
+                  "description": "Financial document or invoice number"
+                },
+                {
+                  "disabled": false,
+                  "key": "deliveryNumber",
+                  "value": "<string>",
+                  "description": "Delivery number"
+                },
+                {
+                  "disabled": false,
+                  "key": "customerPurchaseOrderNumber",
+                  "value": "<string>",
+                  "description": "Customer purchase order number"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "58b28892-51ef-4fc8-9049-7a7bc35c11a8",
+              "name": "Financial document data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial-documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "financialDocumentNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deliveryNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customerPurchaseOrderNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"financialDocuments\": [\n    {\n      \"financialDocumentNumber\": \"string\",\n      \"orderNumber\": \"string\",\n      \"deliveryNumber\": \"string\",\n      \"invoiceAmount\": 6855.259175503785,\n      \"invoiceDate\": \"2010-06-18\",\n      \"currencyISO\": \"string\",\n      \"documentType\": \"string\"\n    },\n    {\n      \"financialDocumentNumber\": \"string\",\n      \"orderNumber\": \"string\",\n      \"deliveryNumber\": \"string\",\n      \"invoiceAmount\": 6883.4895893084695,\n      \"invoiceDate\": \"1971-06-10\",\n      \"currencyISO\": \"string\",\n      \"documentType\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3fcbcea-1a94-4fd5-8bef-9044e9721227",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial-documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "financialDocumentNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deliveryNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customerPurchaseOrderNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f3922aa-5302-4139-8bf1-a93437f691a2",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial-documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "financialDocumentNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deliveryNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customerPurchaseOrderNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5d0aceda-024b-4cd9-b54f-c43b9c86e4bb",
+      "name": "Authentication",
+      "description": {
+        "content": "OAuth 2.0 token endpoints",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://transact.ti.com/v2/store",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://transact.ti.com/v1/oauth/accesstoken"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6922e688-9fc6-4640-aa58-a3ff67630902",
+    "name": "Texas Instruments Store API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Texas Instruments Store API provides programmatic access to TI's ordering and inventory platform. It enables enterprise customers to retrieve real-time inventory and pricing, create and retrieve orders, and track shipments via Advanced Ship Notice (ASN). Authentication uses OAuth 2.0 client credentials flow against the transact.ti.com token endpoint.\n\nContact Support:\n Name: Texas Instruments API Support",
+      "type": "text/plain"
+    }
+  }
+}

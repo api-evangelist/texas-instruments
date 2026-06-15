@@ -1,0 +1,587 @@
+{
+  "item": [
+    {
+      "id": "761f08b2-ab9f-45e5-8d1a-72713fd37697",
+      "name": "Product Information",
+      "description": {
+        "content": "Product details and parametric data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7436d856-6012-4915-b653-0f722b4915f2",
+          "name": "Get Product Information",
+          "request": {
+            "name": "Get Product Information",
+            "description": {
+              "content": "Retrieves basic product details and parametric data for a specific TI part number. Part numbers containing /NOPB must be URL-encoded (/ becomes %2F). Daily rate limit: 3,000 calls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":partNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partNumber",
+                  "description": "(Required) TI part number. URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "91f52029-3c36-428e-a5ff-5ac1e38b599e",
+              "name": "Product information and parametric data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number. URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tiPartNumber\": \"string\",\n  \"genericPartNumber\": \"string\",\n  \"description\": \"string\",\n  \"packageType\": \"string\",\n  \"pinCount\": 907,\n  \"lifeCycle\": \"string\",\n  \"productFamily\": \"string\",\n  \"tiProductType\": \"string\",\n  \"dataSheetUrl\": \"string\",\n  \"productPageUrl\": \"string\",\n  \"parametricData\": [\n    {\n      \"parameterName\": \"string\",\n      \"value\": \"string\",\n      \"unit\": \"string\"\n    },\n    {\n      \"parameterName\": \"string\",\n      \"value\": \"string\",\n      \"unit\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55404360-59f5-42e1-bfc4-17cbba16a379",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number. URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e6979f88-6bd0-4774-940d-3fcbb1bd11ef",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number. URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1212fcad-76b5-43ab-b4cc-5af8398e94dc",
+              "name": "Part number not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number. URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7598dfb0-5ed7-4567-9882-af954d90c012",
+      "name": "Product Information Orchestrated",
+      "description": {
+        "content": "Single-call product details including quality and reliability",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "043ee923-bad2-49bc-9e92-f656115983c6",
+          "name": "Get Product Information (Orchestrated)",
+          "request": {
+            "name": "Get Product Information (Orchestrated)",
+            "description": {
+              "content": "Retrieves comprehensive product data including basic product details, parametric data, quality and reliability information in a single endpoint call. Slower response time than the standard API. Daily rate limit: 1,500 calls. Supports pagination via page parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products-extended",
+                ":partNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number for paginated results (0-indexed)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partNumber",
+                  "description": "(Required) TI part number. URL-encode special characters."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c0b5c8c5-8337-49f3-a8e7-daad2dd63057",
+              "name": "Comprehensive product data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products-extended",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number. URL-encode special characters."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"qualityData\": {\n    \"qualificationStatus\": \"string\",\n    \"moistureSensitivityLevel\": \"string\",\n    \"rohs\": true,\n    \"aecQ100\": false\n  },\n  \"page\": 42,\n  \"totalPages\": 3536,\n  \"tiPartNumber\": \"string\",\n  \"genericPartNumber\": \"string\",\n  \"description\": \"string\",\n  \"packageType\": \"string\",\n  \"pinCount\": 50,\n  \"lifeCycle\": \"string\",\n  \"productFamily\": \"string\",\n  \"tiProductType\": \"string\",\n  \"dataSheetUrl\": \"string\",\n  \"productPageUrl\": \"string\",\n  \"parametricData\": [\n    {\n      \"parameterName\": \"string\",\n      \"value\": \"string\",\n      \"unit\": \"string\"\n    },\n    {\n      \"parameterName\": \"string\",\n      \"value\": \"string\",\n      \"unit\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d4973c8-56e1-48b1-9376-dfe2bf9abef3",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products-extended",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number. URL-encode special characters."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "183a3812-3e2c-41f9-8e40-f67cdf49172c",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products-extended",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number. URL-encode special characters."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c65cb6a-36bf-489f-9558-17837ac96e8e",
+              "name": "Part number not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products-extended",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number. URL-encode special characters."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://transact.ti.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://transact.ti.com/v1/oauth/accesstoken"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "539c1aa6-ccba-4aa7-8418-427d7d75f4ae",
+    "name": "Texas Instruments Product Information API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Texas Instruments Product Information API provides programmatic access to TI's product catalog, including part details, parametric data, quality and reliability information. Two variants are available: the standard API (multiple endpoint calls, higher rate limit) and the orchestrated API (single endpoint call, lower rate limit). Authentication uses OAuth 2.0 client credentials flow.\n\nContact Support:\n Name: Texas Instruments API Support",
+      "type": "text/plain"
+    }
+  }
+}
