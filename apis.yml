@@ -66,7 +66,7 @@ common:
     url: https://www.linkedin.com/company/texas-instruments
   - type: Website
     url: https://www.texas-instruments.com
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://api-portal.ti.com/
   - type: Documentation
     url: https://www.ti.com/developer-api/overview.html
