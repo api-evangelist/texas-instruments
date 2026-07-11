@@ -60,6 +60,10 @@ apis:
       - type: Portal
         url: https://api-portal.ti.com/
 common:
+  - type: Authentication
+    url: authentication/texas-instruments-authentication.yml
+  - type: OAuthScopes
+    url: scopes/texas-instruments-scopes.yml
   - type: GitHubOrganization
     url: https://github.com/TexasInstruments
   - type: LinkedIn
