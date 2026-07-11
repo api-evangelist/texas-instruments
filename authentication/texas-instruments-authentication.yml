@@ -1,0 +1,20 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/texas-instruments-product-information-openapi.yml, openapi/texas-instruments-store-openapi.yml
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://transact.ti.com/v1/oauth/accesstoken
+    scopes: 0
+  description: OAuth 2.0 client credentials flow. Obtain access token using client_id and client_secret
+    from your myTI developer account.
+  sources:
+  - openapi/texas-instruments-product-information-openapi.yml
+  - openapi/texas-instruments-store-openapi.yml
