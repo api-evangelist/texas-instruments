@@ -60,6 +60,8 @@ apis:
       - type: Portal
         url: https://api-portal.ti.com/
 common:
+  - type: AgenticAccess
+    url: agentic-access/texas-instruments-agentic-access.yml
   - type: DomainSecurity
     url: security/texas-instruments-domain-security.yml
   - type: Authentication
