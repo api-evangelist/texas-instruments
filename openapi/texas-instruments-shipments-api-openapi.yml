@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: Texas Instruments Product Information Financial Shipments API
+  description: 'The Texas Instruments Product Information API provides programmatic access to TI''s product catalog, including part details, parametric data, quality and reliability information. Two variants are available: the standard API (multiple endpoint calls, higher rate limit) and the orchestrated API (single endpoint call, lower rate limit). Authentication uses OAuth 2.0 client credentials flow.'
+  version: '1.0'
+  contact:
+    name: Texas Instruments API Support
+    url: https://api-portal.ti.com/support
+  license:
+    name: Proprietary
+    url: https://www.ti.com/
+servers:
+- url: https://transact.ti.com/v1
+  description: Production - TI Product Information API
+security:
+- OAuth2: []
+tags:
+- name: Shipments
+  description: Advanced Ship Notice (ASN) retrieval
+paths:
+  /advanced-ship-notices:
+    get:
+      operationId: getAdvancedShipNotices
+      summary: Get Advanced Ship Notices
+      description: Retrieves advanced ship notice (ASN) information for shipments associated with a specific order, including tracking numbers, carrier information, and commercial invoice details.
+      tags:
+      - Shipments
+      parameters:
+      - name: orderNumber
+        in: query
+        required: true
+        description: TI order number to retrieve ASNs for
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Advanced ship notice data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  advancedShipNotices:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AdvancedShipNotice'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    AdvancedShipNotice:
+      type: object
+      description: Shipment tracking and carrier information for a TI order.
+      properties:
+        asnNumber:
+          type: string
+          description: Advanced Ship Notice number
+        orderNumber:
+          type: string
+        trackingNumber:
+          type: string
+          description: Carrier tracking number
+        carrier:
+          type: string
+          description: Carrier name (e.g., FedEx, UPS)
+        shipDate:
+          type: string
+          format: date
+        estimatedDeliveryDate:
+          type: string
+          format: date
+        lineItems:
+          type: array
+          items:
+            type: object
+            properties:
+              tiPartNumber:
+                type: string
+              quantity:
+                type: integer
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+  responses:
+    Unauthorized:
+      description: Invalid or missing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://transact.ti.com/v1/oauth/accesstoken
+          scopes: {}
+      description: OAuth 2.0 client credentials flow. Obtain access token using client_id and client_secret from your myTI developer account.
+externalDocs:
+  description: TI Product Information API Developer Portal
+  url: https://www.ti.com/developer-api/product-information-api-suite/getting-started.html

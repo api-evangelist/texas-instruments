@@ -1,0 +1,122 @@
+openapi: 3.0.3
+info:
+  title: Texas Instruments Product Information Financial API
+  description: 'The Texas Instruments Product Information API provides programmatic access to TI''s product catalog, including part details, parametric data, quality and reliability information. Two variants are available: the standard API (multiple endpoint calls, higher rate limit) and the orchestrated API (single endpoint call, lower rate limit). Authentication uses OAuth 2.0 client credentials flow.'
+  version: '1.0'
+  contact:
+    name: Texas Instruments API Support
+    url: https://api-portal.ti.com/support
+  license:
+    name: Proprietary
+    url: https://www.ti.com/
+servers:
+- url: https://transact.ti.com/v1
+  description: Production - TI Product Information API
+security:
+- OAuth2: []
+tags:
+- name: Financial
+  description: Financial document and invoice retrieval
+paths:
+  /financial-documents:
+    get:
+      operationId: getFinancialDocuments
+      summary: Get Financial Documents
+      description: 'Retrieves invoice and financial document information. At least one query parameter is required: orderNumber, financialDocumentNumber, deliveryNumber, or customerPurchaseOrderNumber. Documents are available after TI processes shipment.'
+      tags:
+      - Financial
+      parameters:
+      - name: orderNumber
+        in: query
+        required: false
+        description: TI order number
+        schema:
+          type: string
+      - name: financialDocumentNumber
+        in: query
+        required: false
+        description: Financial document or invoice number
+        schema:
+          type: string
+      - name: deliveryNumber
+        in: query
+        required: false
+        description: Delivery number
+        schema:
+          type: string
+      - name: customerPurchaseOrderNumber
+        in: query
+        required: false
+        description: Customer purchase order number
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Financial document data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  financialDocuments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FinancialDocument'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid or missing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    FinancialDocument:
+      type: object
+      description: Invoice and financial document from TI.
+      properties:
+        financialDocumentNumber:
+          type: string
+          description: Invoice or financial document number
+        orderNumber:
+          type: string
+        deliveryNumber:
+          type: string
+        invoiceAmount:
+          type: number
+        invoiceDate:
+          type: string
+          format: date
+        currencyISO:
+          type: string
+        documentType:
+          type: string
+          description: Type of financial document (e.g., Invoice, Credit Memo)
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://transact.ti.com/v1/oauth/accesstoken
+          scopes: {}
+      description: OAuth 2.0 client credentials flow. Obtain access token using client_id and client_secret from your myTI developer account.
+externalDocs:
+  description: TI Product Information API Developer Portal
+  url: https://www.ti.com/developer-api/product-information-api-suite/getting-started.html

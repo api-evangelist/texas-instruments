@@ -1,0 +1,216 @@
+openapi: 3.0.3
+info:
+  title: Texas Instruments Product Information Financial Products API
+  description: 'The Texas Instruments Product Information API provides programmatic access to TI''s product catalog, including part details, parametric data, quality and reliability information. Two variants are available: the standard API (multiple endpoint calls, higher rate limit) and the orchestrated API (single endpoint call, lower rate limit). Authentication uses OAuth 2.0 client credentials flow.'
+  version: '1.0'
+  contact:
+    name: Texas Instruments API Support
+    url: https://api-portal.ti.com/support
+  license:
+    name: Proprietary
+    url: https://www.ti.com/
+servers:
+- url: https://transact.ti.com/v1
+  description: Production - TI Product Information API
+security:
+- OAuth2: []
+tags:
+- name: Products
+  description: Product inventory, pricing, and catalog endpoints
+paths:
+  /products/{partNumber}:
+    get:
+      operationId: getProductInventoryAndPricing
+      summary: Get Product Inventory and Pricing
+      description: Retrieves real-time inventory availability, pricing breaks, future inventory forecasts, and product metadata for a specific TI part number. Part numbers containing /NOPB must be URL-encoded (/ becomes %2F).
+      tags:
+      - Products
+      parameters:
+      - name: partNumber
+        in: path
+        required: true
+        description: TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB).
+        schema:
+          type: string
+        example: LM358BIDR
+      - name: currency
+        in: query
+        required: false
+        description: Currency code for pricing data (e.g., USD, EUR)
+        schema:
+          type: string
+          default: USD
+      responses:
+        '200':
+          description: Product inventory and pricing data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductInventory'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /products/catalog:
+    get:
+      operationId: getProductCatalog
+      summary: Get Product Catalog
+      description: Retrieves inventory and pricing data for all available TI part numbers. Rate limited to 1 request every 4 hours (6 per day). Returns the full catalog for bulk import use cases.
+      tags:
+      - Products
+      parameters:
+      - name: currency
+        in: query
+        required: false
+        description: Currency code for pricing data
+        schema:
+          type: string
+          default: USD
+      responses:
+        '200':
+          description: Full product catalog with inventory and pricing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProductInventory'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+components:
+  responses:
+    Unauthorized:
+      description: Invalid or missing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ProductInventory:
+      type: object
+      description: Inventory, pricing, and metadata for a TI part number.
+      properties:
+        tiPartNumber:
+          type: string
+          description: TI part number (OPN)
+        genericPartNumber:
+          type: string
+          description: Generic/base part number
+        description:
+          type: string
+          description: Part description
+        quantity:
+          type: integer
+          description: Current available stock quantity
+        limit:
+          type: integer
+          description: Maximum quantity per order
+        minimumOrderQuantity:
+          type: integer
+          description: Minimum order quantity
+        standardPackQuantity:
+          type: integer
+          description: Standard packaging quantity
+        lifeCycle:
+          type: string
+          description: Product lifecycle status (e.g., Active, NRND, Obsolete)
+        eccn:
+          type: string
+          description: Export Control Classification Number
+        htsCode:
+          type: string
+          description: Harmonized Tariff Schedule code
+        pinCount:
+          type: integer
+          description: Number of pins
+        packageType:
+          type: string
+          description: Package type (e.g., SOIC, QFP)
+        packageCarrier:
+          type: string
+          description: Package carrier type (e.g., Tape and Reel)
+        customReel:
+          type: boolean
+          description: Whether custom reel is available
+        pricing:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pricing'
+        futureInventory:
+          type: array
+          items:
+            $ref: '#/components/schemas/FutureInventory'
+    PriceBreak:
+      type: object
+      description: Quantity-based price break for a TI part.
+      properties:
+        priceBreakQuantity:
+          type: integer
+          description: Minimum quantity for this price tier
+        price:
+          type: number
+          format: decimal
+          description: Unit price at this quantity break
+    Pricing:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: Currency code (e.g., USD)
+        priceBreaks:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceBreak'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    FutureInventory:
+      type: object
+      properties:
+        forecastQuantity:
+          type: integer
+          nullable: true
+          description: Forecasted available quantity
+        forecastDate:
+          type: string
+          description: Expected availability date
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://transact.ti.com/v1/oauth/accesstoken
+          scopes: {}
+      description: OAuth 2.0 client credentials flow. Obtain access token using client_id and client_secret from your myTI developer account.
+externalDocs:
+  description: TI Product Information API Developer Portal
+  url: https://www.ti.com/developer-api/product-information-api-suite/getting-started.html
