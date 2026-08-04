@@ -1,0 +1,24 @@
+{
+  "provider": "texas-instruments",
+  "sources": [
+    "texas-instruments-financial-api-openapi.yml",
+    "texas-instruments-orders-api-openapi.yml",
+    "texas-instruments-product-information-api-openapi.yml",
+    "texas-instruments-product-information-orchestrated-api-openapi.yml",
+    "texas-instruments-products-api-openapi.yml",
+    "texas-instruments-shipments-api-openapi.yml"
+  ],
+  "outputs": [
+    "texas-instruments-financial-api-openapi.yml",
+    "texas-instruments-orders-api-openapi.yml",
+    "texas-instruments-product-information-api-openapi.yml",
+    "texas-instruments-product-information-orchestrated-api-openapi.yml",
+    "texas-instruments-products-api-openapi.yml",
+    "texas-instruments-shipments-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
