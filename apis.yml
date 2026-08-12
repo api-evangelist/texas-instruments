@@ -154,9 +154,9 @@ common:
   - type: FAQ
     url: https://api-portal.ti.com/faq
   - type: OpenAPI
-    url: openapi/texas-instruments-store-openapi.yml
+    url: openapi/_original/texas-instruments-store-openapi.yml
   - type: OpenAPI
-    url: openapi/texas-instruments-product-information-openapi.yml
+    url: openapi/_original/texas-instruments-product-information-openapi.yml
   - type: JSONSchema
     url: json-schema/ti-product-schema.json
   - type: JSONLD
