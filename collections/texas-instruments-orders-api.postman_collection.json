@@ -1,0 +1,446 @@
+{
+  "item": [
+    {
+      "id": "9be021ff-b331-4e83-813d-e41cee93254d",
+      "name": "Orders",
+      "description": {
+        "content": "Order creation and retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b877f5be-f3bb-4c73-b381-e7266f83b5c1",
+          "name": "Create Order",
+          "request": {
+            "name": "Create Order",
+            "description": {
+              "content": "Creates a new TI store order for one or more part numbers. Returns the order number, line item statuses, pricing, shipping and billing details. Returns HTTP 201 on success.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"checkoutProfileId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"customerPurchaseOrderNumber\": \"<string>\",\n  \"purchaseOrderDate\": \"<date>\",\n  \"endCustomerCompanyName\": \"<string>\",\n  \"expediteShipping\": false,\n  \"customerOrderComments\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "43eaca02-731c-4c26-83c4-0ed0b20b9ecf",
+              "name": "Order created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"checkoutProfileId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"customerPurchaseOrderNumber\": \"<string>\",\n  \"purchaseOrderDate\": \"<date>\",\n  \"endCustomerCompanyName\": \"<string>\",\n  \"expediteShipping\": false,\n  \"customerOrderComments\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderNumber\": \"string\",\n  \"orderStatus\": \"string\",\n  \"customerPurchaseOrderNumber\": \"string\",\n  \"orderPlacedTime\": \"1969-07-05T17:17:36.835Z\",\n  \"subTotal\": 6609.313458002697,\n  \"totalPrice\": 2581.5150451219115,\n  \"totalTax\": 5226.453499567428,\n  \"totalDeliveryCost\": 5449.6256187004,\n  \"totalDiscount\": 2733.5854207470243,\n  \"currencyISO\": \"string\",\n  \"paymentType\": \"string\",\n  \"checkoutProfileIdentifier\": \"string\",\n  \"shippingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"company\": \"string\",\n    \"addressLine1\": \"string\",\n    \"addressLine2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"postalCode\": \"string\",\n    \"country\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"billingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"company\": \"string\",\n    \"addressLine1\": \"string\",\n    \"addressLine2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"postalCode\": \"string\",\n    \"country\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"lineItems\": [\n    {\n      \"tiPartNumber\": \"string\",\n      \"tiPartDescription\": \"string\",\n      \"quantity\": 786,\n      \"status\": \"string\",\n      \"unitPrice\": 1317.0734750271017,\n      \"customReelIndicator\": true\n    },\n    {\n      \"tiPartNumber\": \"string\",\n      \"tiPartDescription\": \"string\",\n      \"quantity\": 2829,\n      \"status\": \"string\",\n      \"unitPrice\": 7794.677784911916,\n      \"customReelIndicator\": true\n    }\n  ],\n  \"orderMessages\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1dda6d20-cddd-4f33-af93-853c0af19e67",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"checkoutProfileId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"customerPurchaseOrderNumber\": \"<string>\",\n  \"purchaseOrderDate\": \"<date>\",\n  \"endCustomerCompanyName\": \"<string>\",\n  \"expediteShipping\": false,\n  \"customerOrderComments\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53bf5378-c122-46ca-8384-ac1bab689510",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"checkoutProfileId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"customerLineItemNumber\": \"<integer>\",\n      \"tiPartNumber\": \"<string>\",\n      \"customerPartNumber\": \"<string>\",\n      \"customReelIndicator\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"customerItemComments\": [\n        {\n          \"message\": \"<string>\"\n        },\n        {\n          \"message\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"customerPurchaseOrderNumber\": \"<string>\",\n  \"purchaseOrderDate\": \"<date>\",\n  \"endCustomerCompanyName\": \"<string>\",\n  \"expediteShipping\": false,\n  \"customerOrderComments\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f50b3ee1-af1e-4515-a5df-8d6093c45bc7",
+          "name": "Get Order",
+          "request": {
+            "name": "Get Order",
+            "description": {
+              "content": "Retrieves the status and details of a specific TI store order by order number. Returns line item statuses, shipping details, and pricing information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderNumber",
+                  "description": "(Required) TI order number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "475d145c-b0a1-4e33-830d-b932e8314614",
+              "name": "Order details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) TI order number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderNumber\": \"string\",\n  \"orderStatus\": \"string\",\n  \"customerPurchaseOrderNumber\": \"string\",\n  \"orderPlacedTime\": \"1993-06-26T11:43:45.345Z\",\n  \"subTotal\": 821.8917379020874,\n  \"totalPrice\": 3441.458405036779,\n  \"totalTax\": 6707.1762286958765,\n  \"totalDeliveryCost\": 2967.6717757635697,\n  \"totalDiscount\": 8568.830087452787,\n  \"currencyISO\": \"string\",\n  \"paymentType\": \"string\",\n  \"checkoutProfileIdentifier\": \"string\",\n  \"shippingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"company\": \"string\",\n    \"addressLine1\": \"string\",\n    \"addressLine2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"postalCode\": \"string\",\n    \"country\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"billingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"company\": \"string\",\n    \"addressLine1\": \"string\",\n    \"addressLine2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"postalCode\": \"string\",\n    \"country\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"lineItems\": [\n    {\n      \"tiPartNumber\": \"string\",\n      \"tiPartDescription\": \"string\",\n      \"quantity\": 9511,\n      \"status\": \"string\",\n      \"unitPrice\": 9266.004575409701,\n      \"customReelIndicator\": false\n    },\n    {\n      \"tiPartNumber\": \"string\",\n      \"tiPartDescription\": \"string\",\n      \"quantity\": 5392,\n      \"status\": \"string\",\n      \"unitPrice\": 5926.232399400517,\n      \"customReelIndicator\": true\n    }\n  ],\n  \"orderMessages\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c480c2e9-2b36-4f35-a968-8e01b08a8ed0",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) TI order number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2388d2f1-0571-456e-b035-f905ed442108",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) TI order number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://transact.ti.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://transact.ti.com/v1/oauth/accesstoken"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6d860e66-0d33-4a2a-80b5-1c121c60aa38",
+    "name": "Texas Instruments Product Information Financial Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Texas Instruments Product Information API provides programmatic access to TI's product catalog, including part details, parametric data, quality and reliability information. Two variants are available: the standard API (multiple endpoint calls, higher rate limit) and the orchestrated API (single endpoint call, lower rate limit). Authentication uses OAuth 2.0 client credentials flow.\n\nContact Support:\n Name: Texas Instruments API Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,514 @@
+{
+  "item": [
+    {
+      "id": "3f7c7fcd-488d-4e2a-863f-04eef0186ffd",
+      "name": "Products",
+      "description": {
+        "content": "Product inventory, pricing, and catalog endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9e7e2e3f-ef98-4262-8c0e-453cf1111116",
+          "name": "Get Product Inventory and Pricing",
+          "request": {
+            "name": "Get Product Inventory and Pricing",
+            "description": {
+              "content": "Retrieves real-time inventory availability, pricing breaks, future inventory forecasts, and product metadata for a specific TI part number. Part numbers containing /NOPB must be URL-encoded (/ becomes %2F).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":partNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "USD",
+                  "description": "Currency code for pricing data (e.g., USD, EUR)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partNumber",
+                  "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79d53986-4109-4bea-aad5-f9d3e4557711",
+              "name": "Product inventory and pricing data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tiPartNumber\": \"string\",\n  \"genericPartNumber\": \"string\",\n  \"description\": \"string\",\n  \"quantity\": 8211,\n  \"limit\": 9376,\n  \"minimumOrderQuantity\": 8703,\n  \"standardPackQuantity\": 1659,\n  \"lifeCycle\": \"string\",\n  \"eccn\": \"string\",\n  \"htsCode\": \"string\",\n  \"pinCount\": 9200,\n  \"packageType\": \"string\",\n  \"packageCarrier\": \"string\",\n  \"customReel\": false,\n  \"pricing\": [\n    {\n      \"currency\": \"string\",\n      \"priceBreaks\": [\n        {\n          \"priceBreakQuantity\": 5921,\n          \"price\": 9390.850958736188\n        },\n        {\n          \"priceBreakQuantity\": 9095,\n          \"price\": 9765.211550887467\n        }\n      ]\n    },\n    {\n      \"currency\": \"string\",\n      \"priceBreaks\": [\n        {\n          \"priceBreakQuantity\": 9748,\n          \"price\": 5388.996010665887\n        },\n        {\n          \"priceBreakQuantity\": 5508,\n          \"price\": 173.27636233864575\n        }\n      ]\n    }\n  ],\n  \"futureInventory\": [\n    {\n      \"forecastQuantity\": 1789,\n      \"forecastDate\": \"string\"\n    },\n    {\n      \"forecastQuantity\": 3041,\n      \"forecastDate\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08b995c4-6337-4697-8c1e-6164bd0db307",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c41e45a9-82d7-4380-8228-bac1765f44d4",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f60a0402-b1ba-421b-ab96-c669d0910c3b",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":partNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partNumber",
+                      "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ef5561e4-8795-4dd5-8856-9578eb244684",
+          "name": "Get Product Catalog",
+          "request": {
+            "name": "Get Product Catalog",
+            "description": {
+              "content": "Retrieves inventory and pricing data for all available TI part numbers. Rate limited to 1 request every 4 hours (6 per day). Returns the full catalog for bulk import use cases.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                "catalog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "USD",
+                  "description": "Currency code for pricing data"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4482b301-3fe5-4ff3-a287-8c6bf115e9e8",
+              "name": "Full product catalog with inventory and pricing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "catalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"products\": [\n    {\n      \"tiPartNumber\": \"string\",\n      \"genericPartNumber\": \"string\",\n      \"description\": \"string\",\n      \"quantity\": 5421,\n      \"limit\": 9384,\n      \"minimumOrderQuantity\": 6583,\n      \"standardPackQuantity\": 6945,\n      \"lifeCycle\": \"string\",\n      \"eccn\": \"string\",\n      \"htsCode\": \"string\",\n      \"pinCount\": 2931,\n      \"packageType\": \"string\",\n      \"packageCarrier\": \"string\",\n      \"customReel\": true,\n      \"pricing\": [\n        {\n          \"currency\": \"string\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"currency\": \"string\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"futureInventory\": [\n        {\n          \"forecastQuantity\": 6323,\n          \"forecastDate\": \"string\"\n        },\n        {\n          \"forecastQuantity\": 4858,\n          \"forecastDate\": \"string\"\n        }\n      ]\n    },\n    {\n      \"tiPartNumber\": \"string\",\n      \"genericPartNumber\": \"string\",\n      \"description\": \"string\",\n      \"quantity\": 8284,\n      \"limit\": 7699,\n      \"minimumOrderQuantity\": 4609,\n      \"standardPackQuantity\": 7102,\n      \"lifeCycle\": \"string\",\n      \"eccn\": \"string\",\n      \"htsCode\": \"string\",\n      \"pinCount\": 240,\n      \"packageType\": \"string\",\n      \"packageCarrier\": \"string\",\n      \"customReel\": true,\n      \"pricing\": [\n        {\n          \"currency\": \"string\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"currency\": \"string\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"futureInventory\": [\n        {\n          \"forecastQuantity\": 7698,\n          \"forecastDate\": \"string\"\n        },\n        {\n          \"forecastQuantity\": 9355,\n          \"forecastDate\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb1cc0fe-a560-46f0-8a0d-ee162f158fdd",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "catalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ca3bf8d-48bd-4641-8efc-14997657000d",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "catalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://transact.ti.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://transact.ti.com/v1/oauth/accesstoken"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "270b15d5-65dd-4f8f-b28a-6105f701812d",
+    "name": "Texas Instruments Product Information Financial Products API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Texas Instruments Product Information API provides programmatic access to TI's product catalog, including part details, parametric data, quality and reliability information. Two variants are available: the standard API (multiple endpoint calls, higher rate limit) and the orchestrated API (single endpoint call, lower rate limit). Authentication uses OAuth 2.0 client credentials flow.\n\nContact Support:\n Name: Texas Instruments API Support",
+      "type": "text/plain"
+    }
+  }
+}

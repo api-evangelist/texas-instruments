@@ -1,0 +1,285 @@
+{
+  "item": [
+    {
+      "id": "236ebff0-a98a-4d23-ac14-d328472b34c1",
+      "name": "Financial",
+      "description": {
+        "content": "Financial document and invoice retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cbe6ca86-6456-4218-b744-1fde235c130b",
+          "name": "Get Financial Documents",
+          "request": {
+            "name": "Get Financial Documents",
+            "description": {
+              "content": "Retrieves invoice and financial document information. At least one query parameter is required: orderNumber, financialDocumentNumber, deliveryNumber, or customerPurchaseOrderNumber. Documents are available after TI processes shipment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "financial-documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orderNumber",
+                  "value": "<string>",
+                  "description": "TI order number"
+                },
+                {
+                  "disabled": false,
+                  "key": "financialDocumentNumber",
+                  "value": "<string>",
+                  "description": "Financial document or invoice number"
+                },
+                {
+                  "disabled": false,
+                  "key": "deliveryNumber",
+                  "value": "<string>",
+                  "description": "Delivery number"
+                },
+                {
+                  "disabled": false,
+                  "key": "customerPurchaseOrderNumber",
+                  "value": "<string>",
+                  "description": "Customer purchase order number"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a9dfbda9-f12a-4468-bc28-c88ca00a6c5a",
+              "name": "Financial document data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial-documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "financialDocumentNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deliveryNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customerPurchaseOrderNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"financialDocuments\": [\n    {\n      \"financialDocumentNumber\": \"string\",\n      \"orderNumber\": \"string\",\n      \"deliveryNumber\": \"string\",\n      \"invoiceAmount\": 7496.773174723283,\n      \"invoiceDate\": \"1950-08-26\",\n      \"currencyISO\": \"string\",\n      \"documentType\": \"string\"\n    },\n    {\n      \"financialDocumentNumber\": \"string\",\n      \"orderNumber\": \"string\",\n      \"deliveryNumber\": \"string\",\n      \"invoiceAmount\": 5646.300032127728,\n      \"invoiceDate\": \"1987-11-16\",\n      \"currencyISO\": \"string\",\n      \"documentType\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a51ef775-3264-4e71-a900-843c207b8878",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial-documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "financialDocumentNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deliveryNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customerPurchaseOrderNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a354e24a-8af5-4837-9dad-4f0076efb449",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial-documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "financialDocumentNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deliveryNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customerPurchaseOrderNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://transact.ti.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://transact.ti.com/v1/oauth/accesstoken"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "20798a65-ff4a-495e-94d8-b7d8481aaa26",
+    "name": "Texas Instruments Product Information Financial API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Texas Instruments Product Information API provides programmatic access to TI's product catalog, including part details, parametric data, quality and reliability information. Two variants are available: the standard API (multiple endpoint calls, higher rate limit) and the orchestrated API (single endpoint call, lower rate limit). Authentication uses OAuth 2.0 client credentials flow.\n\nContact Support:\n Name: Texas Instruments API Support",
+      "type": "text/plain"
+    }
+  }
+}

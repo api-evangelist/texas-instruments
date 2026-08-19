@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Texas Instruments Product Information Financial API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://transact.ti.com/v1/oauth/accesstoken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Financial",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Financial Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://transact.ti.com/v1/financial-documents",
+            "params": [
+              {
+                "name": "orderNumber",
+                "value": "",
+                "type": "query",
+                "description": "TI order number"
+              },
+              {
+                "name": "financialDocumentNumber",
+                "value": "",
+                "type": "query",
+                "description": "Financial document or invoice number"
+              },
+              {
+                "name": "deliveryNumber",
+                "value": "",
+                "type": "query",
+                "description": "Delivery number"
+              },
+              {
+                "name": "customerPurchaseOrderNumber",
+                "value": "",
+                "type": "query",
+                "description": "Customer purchase order number"
+              }
+            ]
+          },
+          "docs": "Retrieves invoice and financial document information. At least one query parameter is required: orderNumber, financialDocumentNumber, deliveryNumber, or customerPurchaseOrderNumber. Documents are available after TI processes shipment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

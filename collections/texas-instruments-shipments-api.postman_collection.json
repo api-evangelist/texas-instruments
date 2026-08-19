@@ -1,0 +1,231 @@
+{
+  "item": [
+    {
+      "id": "f1db8f52-4d8d-46dd-8208-2efe619ad010",
+      "name": "Shipments",
+      "description": {
+        "content": "Advanced Ship Notice (ASN) retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9a8a6153-63eb-427c-9377-f0645d5e4d31",
+          "name": "Get Advanced Ship Notices",
+          "request": {
+            "name": "Get Advanced Ship Notices",
+            "description": {
+              "content": "Retrieves advanced ship notice (ASN) information for shipments associated with a specific order, including tracking numbers, carrier information, and commercial invoice details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "advanced-ship-notices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orderNumber",
+                  "value": "<string>",
+                  "description": "(Required) TI order number to retrieve ASNs for"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0dc59fb0-f2f0-4531-a4e5-23d39a55e36d",
+              "name": "Advanced ship notice data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advanced-ship-notices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"advancedShipNotices\": [\n    {\n      \"asnNumber\": \"string\",\n      \"orderNumber\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"carrier\": \"string\",\n      \"shipDate\": \"1962-07-20\",\n      \"estimatedDeliveryDate\": \"1952-07-31\",\n      \"lineItems\": [\n        {\n          \"tiPartNumber\": \"string\",\n          \"quantity\": 8106\n        },\n        {\n          \"tiPartNumber\": \"string\",\n          \"quantity\": 2940\n        }\n      ]\n    },\n    {\n      \"asnNumber\": \"string\",\n      \"orderNumber\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"carrier\": \"string\",\n      \"shipDate\": \"1971-10-26\",\n      \"estimatedDeliveryDate\": \"1997-11-06\",\n      \"lineItems\": [\n        {\n          \"tiPartNumber\": \"string\",\n          \"quantity\": 6093\n        },\n        {\n          \"tiPartNumber\": \"string\",\n          \"quantity\": 4962\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c588bdf-6397-478e-b0af-596631088163",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advanced-ship-notices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d57fd4e-c3ce-4d62-a83a-83d3f31a0430",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advanced-ship-notices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderNumber",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://transact.ti.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://transact.ti.com/v1/oauth/accesstoken"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "aff952d0-42da-4b50-bc8a-ab81577d2871",
+    "name": "Texas Instruments Product Information Financial Shipments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Texas Instruments Product Information API provides programmatic access to TI's product catalog, including part details, parametric data, quality and reliability information. Two variants are available: the standard API (multiple endpoint calls, higher rate limit) and the orchestrated API (single endpoint call, lower rate limit). Authentication uses OAuth 2.0 client credentials flow.\n\nContact Support:\n Name: Texas Instruments API Support",
+      "type": "text/plain"
+    }
+  }
+}

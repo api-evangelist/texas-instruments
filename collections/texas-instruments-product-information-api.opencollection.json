@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Texas Instruments Financial Product Information API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://transact.ti.com/v1/oauth/accesstoken",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Product Information",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Product Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://transact.ti.com/v1/products/:partNumber",
+            "params": [
+              {
+                "name": "partNumber",
+                "value": "OPA1612AIDR",
+                "type": "path",
+                "description": "TI part number. URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
+              }
+            ]
+          },
+          "docs": "Retrieves basic product details and parametric data for a specific TI part number. Part numbers containing /NOPB must be URL-encoded (/ becomes %2F). Daily rate limit: 3,000 calls."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
