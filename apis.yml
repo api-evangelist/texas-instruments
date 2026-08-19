@@ -23,7 +23,7 @@ accessModel:
 modified: '2026-05-19'
 created: '2026-03-21'
 type: Index
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/texas-instruments.png
 tags:
   - Electronics
