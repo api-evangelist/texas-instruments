@@ -54,6 +54,8 @@ apis:
   humanURL: https://www.ti.com/developer-api/store-api/getting-started.html
   baseURL: https://transact.ti.com/v2/store
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -102,6 +104,8 @@ apis:
   humanURL: https://www.ti.com/developer-api/store-api/getting-started.html
   baseURL: https://transact.ti.com/v2/store
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
