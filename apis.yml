@@ -7,6 +7,17 @@ description: >-
   shipment tracking, as well as Product Information APIs for accessing parametric data, quality, and reliability
   information on TI's extensive semiconductor catalog.
 url: https://raw.githubusercontent.com/api-evangelist/texas-instruments/refs/heads/main/apis.yml
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
