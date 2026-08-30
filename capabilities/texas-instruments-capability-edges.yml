@@ -1,0 +1,25 @@
+slug: texas-instruments
+provider: Texas Instruments
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Electrical Components & Equipment
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Orders
+  spec_file: texas-instruments-orders-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.7
+  evidence: POST /orders 'Create Order'; schemas 'OrderRequest', 'OrderLineItem', 'Address', 'OrderResponse'
+  reason: Customer order capture and retrieval with line items and ship-to address — sales order intake
+    and fulfilment orchestration for TI's store. Could alternatively be read as sales opportunity/quoting,
+    but order creation with line items points to order fulfilment; 0.7.

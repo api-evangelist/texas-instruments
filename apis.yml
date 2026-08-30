@@ -144,6 +144,9 @@ apis:
   - type: Documentation
     url: https://www.ti.com/developer-api/product-information-api-suite/getting-started.html
 common:
+  - type: CapabilityMap
+    url: capabilities/texas-instruments-capability-edges.yml
+    name: Texas Instruments Business Capability Map
   - type: AgenticAccess
     url: agentic-access/texas-instruments-agentic-access.yml
   - type: DomainSecurity
