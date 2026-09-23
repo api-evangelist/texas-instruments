@@ -1,24 +1,32 @@
 {
   "provider": "texas-instruments",
   "sources": [
-    "texas-instruments-financial-api-openapi.yml",
-    "texas-instruments-orders-api-openapi.yml",
-    "texas-instruments-product-information-api-openapi.yml",
-    "texas-instruments-product-information-orchestrated-api-openapi.yml",
-    "texas-instruments-products-api-openapi.yml",
-    "texas-instruments-shipments-api-openapi.yml"
+    "_original/texas-instruments-product-information-openapi.yml",
+    "_original/texas-instruments-store-openapi.yml"
   ],
   "outputs": [
-    "texas-instruments-financial-api-openapi.yml",
-    "texas-instruments-orders-api-openapi.yml",
     "texas-instruments-product-information-api-openapi.yml",
     "texas-instruments-product-information-orchestrated-api-openapi.yml",
+    "texas-instruments-financial-api-openapi.yml",
+    "texas-instruments-orders-api-openapi.yml",
     "texas-instruments-products-api-openapi.yml",
     "texas-instruments-shipments-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "texas-instruments-product-information-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "texas-instruments-store-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "texas-instruments-financial-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "texas-instruments-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "texas-instruments-product-information-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "texas-instruments-product-information-orchestrated-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "texas-instruments-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "texas-instruments-shipments-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

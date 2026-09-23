@@ -1,7 +1,9 @@
 ---
 title: 'Texas Instruments Earnings: All Aboard the AI Train'
 url: https://www.morningstar.com/stocks/texas-instruments-earnings-all-aboard-ai-train
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Texas Instruments" press release artificial intelligence'
 position: 4
 source: serpapi-google

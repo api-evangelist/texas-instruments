@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Texas Instruments Product Information Financial Product Information Orchestrated API
+  title: Texas Instruments Product Information Product Information…
   description: 'The Texas Instruments Product Information API provides programmatic access to TI''s product catalog, including part details, parametric data, quality and reliability information. Two variants are available: the standard API (multiple endpoint calls, higher rate limit) and the orchestrated API (single endpoint call, lower rate limit). Authentication uses OAuth 2.0 client credentials flow.'
   version: '1.0'
   contact:
@@ -54,26 +54,14 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: Invalid or missing authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Part number not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
     QualityData:
       type: object
       description: Quality and reliability data for a TI part.
@@ -90,6 +78,19 @@ components:
         aecQ100:
           type: boolean
           description: Whether the part is AEC-Q100 qualified for automotive
+    ParametricData:
+      type: object
+      description: Technical parametric specification for a TI part.
+      properties:
+        parameterName:
+          type: string
+          description: Parameter name (e.g., "Supply Voltage (Max)")
+        value:
+          type: string
+          description: Parameter value
+        unit:
+          type: string
+          description: Unit of measurement (e.g., V, MHz, mA)
     ProductInformation:
       type: object
       description: Basic product details and parametric data for a TI part number.
@@ -143,26 +144,25 @@ components:
         totalPages:
           type: integer
           description: Total number of pages
-    ParametricData:
-      type: object
-      description: Technical parametric specification for a TI part.
-      properties:
-        parameterName:
-          type: string
-          description: Parameter name (e.g., "Supply Voltage (Max)")
-        value:
-          type: string
-          description: Parameter value
-        unit:
-          type: string
-          description: Unit of measurement (e.g., V, MHz, mA)
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Part number not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid or missing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2

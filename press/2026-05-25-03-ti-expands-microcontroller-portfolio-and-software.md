@@ -1,7 +1,9 @@
 ---
 title: TI expands microcontroller portfolio and software ...
 url: https://www.prnewswire.com/news-releases/ti-expands-microcontroller-portfolio-and-software-ecosystem-to-enable-edge-ai-in-every-device-302708210.html
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Texas Instruments" press release artificial intelligence'
 position: 3
 source: serpapi-google

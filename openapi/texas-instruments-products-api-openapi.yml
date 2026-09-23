@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Texas Instruments Product Information Financial Products API
-  description: 'The Texas Instruments Product Information API provides programmatic access to TI''s product catalog, including part details, parametric data, quality and reliability information. Two variants are available: the standard API (multiple endpoint calls, higher rate limit) and the orchestrated API (single endpoint call, lower rate limit). Authentication uses OAuth 2.0 client credentials flow.'
-  version: '1.0'
+  title: Texas Instruments Store Products API
+  description: The Texas Instruments Store API provides programmatic access to TI's ordering and inventory platform. It enables enterprise customers to retrieve real-time inventory and pricing, create and retrieve orders, and track shipments via Advanced Ship Notice (ASN). Authentication uses OAuth 2.0 client credentials flow against the transact.ti.com token endpoint.
+  version: '2.0'
   contact:
     name: Texas Instruments API Support
     url: https://api-portal.ti.com/support
@@ -10,8 +10,10 @@ info:
     name: Proprietary
     url: https://www.ti.com/
 servers:
-- url: https://transact.ti.com/v1
-  description: Production - TI Product Information API
+- url: https://transact.ti.com/v2/store
+  description: Production - TI Store API
+- url: https://transact.ti.com/v2/store/orders/test
+  description: Test - Order API
 security:
 - OAuth2: []
 tags:
@@ -85,32 +87,35 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
-  responses:
-    Unauthorized:
-      description: Invalid or missing authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: Rate limit exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    FutureInventory:
+      type: object
+      properties:
+        forecastQuantity:
+          type:
+          - integer
+          - 'null'
+          description: Forecasted available quantity
+        forecastDate:
+          type: string
+          description: Expected availability date
+    Pricing:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: Currency code (e.g., USD)
+        priceBreaks:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceBreak'
     ProductInventory:
       type: object
       description: Inventory, pricing, and metadata for a TI part number.
@@ -176,33 +181,31 @@ components:
           type: number
           format: decimal
           description: Unit price at this quantity break
-    Pricing:
-      type: object
-      properties:
-        currency:
-          type: string
-          description: Currency code (e.g., USD)
-        priceBreaks:
-          type: array
-          items:
-            $ref: '#/components/schemas/PriceBreak'
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-    FutureInventory:
-      type: object
-      properties:
-        forecastQuantity:
-          type: integer
-          nullable: true
-          description: Forecasted available quantity
-        forecastDate:
-          type: string
-          description: Expected availability date
+  responses:
+    RateLimited:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid or missing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2
@@ -210,7 +213,7 @@ components:
         clientCredentials:
           tokenUrl: https://transact.ti.com/v1/oauth/accesstoken
           scopes: {}
-      description: OAuth 2.0 client credentials flow. Obtain access token using client_id and client_secret from your myTI developer account.
+      description: OAuth 2.0 client credentials flow. Obtain access token using client_id and client_secret from your myTI company account.
 externalDocs:
-  description: TI Product Information API Developer Portal
-  url: https://www.ti.com/developer-api/product-information-api-suite/getting-started.html
+  description: TI Store API Developer Portal
+  url: https://www.ti.com/developer-api/store-api/getting-started.html

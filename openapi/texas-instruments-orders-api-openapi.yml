@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Texas Instruments Product Information Financial Orders API
-  description: 'The Texas Instruments Product Information API provides programmatic access to TI''s product catalog, including part details, parametric data, quality and reliability information. Two variants are available: the standard API (multiple endpoint calls, higher rate limit) and the orchestrated API (single endpoint call, lower rate limit). Authentication uses OAuth 2.0 client credentials flow.'
-  version: '1.0'
+  title: Texas Instruments Store Orders API
+  description: The Texas Instruments Store API provides programmatic access to TI's ordering and inventory platform. It enables enterprise customers to retrieve real-time inventory and pricing, create and retrieve orders, and track shipments via Advanced Ship Notice (ASN). Authentication uses OAuth 2.0 client credentials flow against the transact.ti.com token endpoint.
+  version: '2.0'
   contact:
     name: Texas Instruments API Support
     url: https://api-portal.ti.com/support
@@ -10,8 +10,10 @@ info:
     name: Proprietary
     url: https://www.ti.com/
 servers:
-- url: https://transact.ti.com/v1
-  description: Production - TI Product Information API
+- url: https://transact.ti.com/v2/store
+  description: Production - TI Store API
+- url: https://transact.ti.com/v2/store/orders/test
+  description: Test - Order API
 security:
 - OAuth2: []
 tags:
@@ -70,6 +72,13 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
     Address:
       type: object
       properties:
@@ -95,80 +104,6 @@ components:
           type: string
         phone:
           type: string
-    OrderResponseLineItem:
-      type: object
-      properties:
-        tiPartNumber:
-          type: string
-        tiPartDescription:
-          type: string
-        quantity:
-          type: integer
-        status:
-          type: string
-        unitPrice:
-          type: number
-        customReelIndicator:
-          type: boolean
-    OrderLineItem:
-      type: object
-      properties:
-        customerLineItemNumber:
-          type: integer
-          description: Customer-assigned line item number
-        tiPartNumber:
-          type: string
-          description: TI part number to order
-        customerPartNumber:
-          type: string
-          description: Customer's internal part number (optional)
-        customReelIndicator:
-          type: boolean
-          description: Request custom reel packaging
-        quantity:
-          type: integer
-          description: Order quantity
-        customerItemComments:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-    OrderRequest:
-      type: object
-      required:
-      - checkoutProfileId
-      - lineItems
-      properties:
-        checkoutProfileId:
-          type: string
-          description: Checkout profile ID from your TI account
-        customerPurchaseOrderNumber:
-          type: string
-          description: Your internal purchase order number
-        purchaseOrderDate:
-          type: string
-          format: date
-          description: Purchase order date in ISO 8601 format
-        endCustomerCompanyName:
-          type: string
-          description: End customer company name (for export compliance)
-        expediteShipping:
-          type: boolean
-          description: Request expedited shipping
-          default: false
-        customerOrderComments:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-        lineItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderLineItem'
     OrderResponse:
       type: object
       properties:
@@ -214,20 +149,81 @@ components:
             properties:
               message:
                 type: string
-    Error:
+    OrderRequest:
+      type: object
+      required:
+      - checkoutProfileId
+      - lineItems
+      properties:
+        checkoutProfileId:
+          type: string
+          description: Checkout profile ID from your TI account
+        customerPurchaseOrderNumber:
+          type: string
+          description: Your internal purchase order number
+        purchaseOrderDate:
+          type: string
+          format: date
+          description: Purchase order date in ISO 8601 format
+        endCustomerCompanyName:
+          type: string
+          description: End customer company name (for export compliance)
+        expediteShipping:
+          type: boolean
+          description: Request expedited shipping
+          default: false
+        customerOrderComments:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+        lineItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLineItem'
+    OrderLineItem:
       type: object
       properties:
-        code:
+        customerLineItemNumber:
+          type: integer
+          description: Customer-assigned line item number
+        tiPartNumber:
           type: string
-        message:
+          description: TI part number to order
+        customerPartNumber:
           type: string
+          description: Customer's internal part number (optional)
+        customReelIndicator:
+          type: boolean
+          description: Request custom reel packaging
+        quantity:
+          type: integer
+          description: Order quantity
+        customerItemComments:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+    OrderResponseLineItem:
+      type: object
+      properties:
+        tiPartNumber:
+          type: string
+        tiPartDescription:
+          type: string
+        quantity:
+          type: integer
+        status:
+          type: string
+        unitPrice:
+          type: number
+        customReelIndicator:
+          type: boolean
   responses:
-    Unauthorized:
-      description: Invalid or missing authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request parameters
       content:
@@ -240,6 +236,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid or missing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2
@@ -247,7 +249,7 @@ components:
         clientCredentials:
           tokenUrl: https://transact.ti.com/v1/oauth/accesstoken
           scopes: {}
-      description: OAuth 2.0 client credentials flow. Obtain access token using client_id and client_secret from your myTI developer account.
+      description: OAuth 2.0 client credentials flow. Obtain access token using client_id and client_secret from your myTI company account.
 externalDocs:
-  description: TI Product Information API Developer Portal
-  url: https://www.ti.com/developer-api/product-information-api-suite/getting-started.html
+  description: TI Store API Developer Portal
+  url: https://www.ti.com/developer-api/store-api/getting-started.html
