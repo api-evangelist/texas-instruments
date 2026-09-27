@@ -49,6 +49,8 @@ apis:
   humanURL: https://www.ti.com/developer-api/store-api/getting-started.html
   baseURL: https://transact.ti.com/v2/store
   tags:
+  - Finance
+  tags_raw:
   - Financial
   properties:
   - type: OpenAPI

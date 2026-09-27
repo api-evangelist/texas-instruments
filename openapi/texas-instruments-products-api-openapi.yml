@@ -88,6 +88,17 @@ paths:
           $ref: '#/components/responses/RateLimited'
 components:
   schemas:
+    PriceBreak:
+      type: object
+      description: Quantity-based price break for a TI part.
+      properties:
+        priceBreakQuantity:
+          type: integer
+          description: Minimum quantity for this price tier
+        price:
+          type: number
+          format: decimal
+          description: Unit price at this quantity break
     Error:
       type: object
       properties:
@@ -170,20 +181,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FutureInventory'
-    PriceBreak:
-      type: object
-      description: Quantity-based price break for a TI part.
-      properties:
-        priceBreakQuantity:
-          type: integer
-          description: Minimum quantity for this price tier
-        price:
-          type: number
-          format: decimal
-          description: Unit price at this quantity break
   responses:
-    RateLimited:
-      description: Rate limit exceeded
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -194,14 +194,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Invalid or missing authentication token
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid or missing authentication token
+    RateLimited:
+      description: Rate limit exceeded
       content:
         application/json:
           schema:
