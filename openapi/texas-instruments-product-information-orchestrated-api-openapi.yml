@@ -55,14 +55,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    NotFound:
-      description: Part number not found
+    BadRequest:
+      description: Invalid request parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
+    NotFound:
+      description: Part number not found
       content:
         application/json:
           schema:
@@ -74,36 +74,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    ProductInformationExtended:
-      type: object
-      description: Comprehensive product data including quality and reliability.
-      allOf:
-      - $ref: '#/components/schemas/ProductInformation'
-      properties:
-        qualityData:
-          $ref: '#/components/schemas/QualityData'
-        page:
-          type: integer
-          description: Current page number
-        totalPages:
-          type: integer
-          description: Total number of pages
-    QualityData:
-      type: object
-      description: Quality and reliability data for a TI part.
-      properties:
-        qualificationStatus:
-          type: string
-          description: Qualification status (e.g., Qualified, Automotive)
-        moistureSensitivityLevel:
-          type: string
-          description: MSL rating (e.g., MSL 1, MSL 2)
-        rohs:
-          type: boolean
-          description: Whether the part is RoHS compliant
-        aecQ100:
-          type: boolean
-          description: Whether the part is AEC-Q100 qualified for automotive
     ProductInformation:
       type: object
       description: Basic product details and parametric data for a TI part number.
@@ -156,6 +126,22 @@ components:
         unit:
           type: string
           description: Unit of measurement (e.g., V, MHz, mA)
+    QualityData:
+      type: object
+      description: Quality and reliability data for a TI part.
+      properties:
+        qualificationStatus:
+          type: string
+          description: Qualification status (e.g., Qualified, Automotive)
+        moistureSensitivityLevel:
+          type: string
+          description: MSL rating (e.g., MSL 1, MSL 2)
+        rohs:
+          type: boolean
+          description: Whether the part is RoHS compliant
+        aecQ100:
+          type: boolean
+          description: Whether the part is AEC-Q100 qualified for automotive
     Error:
       type: object
       properties:
@@ -163,6 +149,20 @@ components:
           type: string
         message:
           type: string
+    ProductInformationExtended:
+      type: object
+      description: Comprehensive product data including quality and reliability.
+      allOf:
+      - $ref: '#/components/schemas/ProductInformation'
+      properties:
+        qualityData:
+          $ref: '#/components/schemas/QualityData'
+        page:
+          type: integer
+          description: Current page number
+        totalPages:
+          type: integer
+          description: Total number of pages
   securitySchemes:
     OAuth2:
       type: oauth2

@@ -71,7 +71,51 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid or missing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Address:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        company:
+          type: string
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
     OrderResponseLineItem:
       type: object
       properties:
@@ -132,6 +176,38 @@ components:
             properties:
               message:
                 type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    OrderLineItem:
+      type: object
+      properties:
+        customerLineItemNumber:
+          type: integer
+          description: Customer-assigned line item number
+        tiPartNumber:
+          type: string
+          description: TI part number to order
+        customerPartNumber:
+          type: string
+          description: Customer's internal part number (optional)
+        customReelIndicator:
+          type: boolean
+          description: Request custom reel packaging
+        quantity:
+          type: integer
+          description: Order quantity
+        customerItemComments:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
     OrderRequest:
       type: object
       required:
@@ -166,82 +242,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderLineItem'
-    OrderLineItem:
-      type: object
-      properties:
-        customerLineItemNumber:
-          type: integer
-          description: Customer-assigned line item number
-        tiPartNumber:
-          type: string
-          description: TI part number to order
-        customerPartNumber:
-          type: string
-          description: Customer's internal part number (optional)
-        customReelIndicator:
-          type: boolean
-          description: Request custom reel packaging
-        quantity:
-          type: integer
-          description: Order quantity
-        customerItemComments:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-    Address:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        company:
-          type: string
-        addressLine1:
-          type: string
-        addressLine2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid or missing authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2
