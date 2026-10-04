@@ -113,19 +113,6 @@ components:
           description: Technical specifications and parameters
           items:
             $ref: '#/components/schemas/ParametricData'
-    ParametricData:
-      type: object
-      description: Technical parametric specification for a TI part.
-      properties:
-        parameterName:
-          type: string
-          description: Parameter name (e.g., "Supply Voltage (Max)")
-        value:
-          type: string
-          description: Parameter value
-        unit:
-          type: string
-          description: Unit of measurement (e.g., V, MHz, mA)
     QualityData:
       type: object
       description: Quality and reliability data for a TI part.
@@ -142,13 +129,19 @@ components:
         aecQ100:
           type: boolean
           description: Whether the part is AEC-Q100 qualified for automotive
-    Error:
+    ParametricData:
       type: object
+      description: Technical parametric specification for a TI part.
       properties:
-        code:
+        parameterName:
           type: string
-        message:
+          description: Parameter name (e.g., "Supply Voltage (Max)")
+        value:
           type: string
+          description: Parameter value
+        unit:
+          type: string
+          description: Unit of measurement (e.g., V, MHz, mA)
     ProductInformationExtended:
       type: object
       description: Comprehensive product data including quality and reliability.
@@ -163,6 +156,13 @@ components:
         totalPages:
           type: integer
           description: Total number of pages
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
   securitySchemes:
     OAuth2:
       type: oauth2

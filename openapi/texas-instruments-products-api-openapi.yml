@@ -87,43 +87,7 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: Rate limit exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid or missing authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    FutureInventory:
-      type: object
-      properties:
-        forecastQuantity:
-          type:
-          - integer
-          - 'null'
-          description: Forecasted available quantity
-        forecastDate:
-          type: string
-          description: Expected availability date
     ProductInventory:
       type: object
       description: Inventory, pricing, and metadata for a TI part number.
@@ -178,13 +142,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FutureInventory'
-    Error:
+    Pricing:
       type: object
       properties:
-        code:
+        currency:
           type: string
-        message:
+          description: Currency code (e.g., USD)
+        priceBreaks:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceBreak'
+    FutureInventory:
+      type: object
+      properties:
+        forecastQuantity:
+          type:
+          - integer
+          - 'null'
+          description: Forecasted available quantity
+        forecastDate:
           type: string
+          description: Expected availability date
     PriceBreak:
       type: object
       description: Quantity-based price break for a TI part.
@@ -196,16 +174,38 @@ components:
           type: number
           format: decimal
           description: Unit price at this quantity break
-    Pricing:
+    Error:
       type: object
       properties:
-        currency:
+        code:
           type: string
-          description: Currency code (e.g., USD)
-        priceBreaks:
-          type: array
-          items:
-            $ref: '#/components/schemas/PriceBreak'
+        message:
+          type: string
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid or missing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2
