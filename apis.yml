@@ -146,6 +146,12 @@ apis:
   - type: Documentation
     url: https://www.ti.com/developer-api/product-information-api-suite/getting-started.html
 common:
+  - type: Plans
+    url: plans/texas-instruments-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/texas-instruments-rate-limits.yml
+  - type: FinOps
+    url: finops/texas-instruments-finops.yml
   - type: CapabilityMap
     url: capabilities/texas-instruments-capability-edges.yml
     name: Texas Instruments Business Capability Map
