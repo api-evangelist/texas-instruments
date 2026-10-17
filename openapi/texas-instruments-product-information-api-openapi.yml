@@ -48,6 +48,12 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
+    Unauthorized:
+      description: Invalid or missing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request parameters
       content:
@@ -60,13 +66,27 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid or missing authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    ParametricData:
+      type: object
+      description: Technical parametric specification for a TI part.
+      properties:
+        parameterName:
+          type: string
+          description: Parameter name (e.g., "Supply Voltage (Max)")
+        value:
+          type: string
+          description: Parameter value
+        unit:
+          type: string
+          description: Unit of measurement (e.g., V, MHz, mA)
     ProductInformation:
       type: object
       description: Basic product details and parametric data for a TI part number.
@@ -106,26 +126,6 @@ components:
           description: Technical specifications and parameters
           items:
             $ref: '#/components/schemas/ParametricData'
-    ParametricData:
-      type: object
-      description: Technical parametric specification for a TI part.
-      properties:
-        parameterName:
-          type: string
-          description: Parameter name (e.g., "Supply Voltage (Max)")
-        value:
-          type: string
-          description: Parameter value
-        unit:
-          type: string
-          description: Unit of measurement (e.g., V, MHz, mA)
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
   securitySchemes:
     OAuth2:
       type: oauth2

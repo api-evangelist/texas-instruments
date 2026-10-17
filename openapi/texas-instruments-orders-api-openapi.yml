@@ -72,6 +72,31 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Address:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        company:
+          type: string
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
     OrderLineItem:
       type: object
       properties:
@@ -97,21 +122,6 @@ components:
             properties:
               message:
                 type: string
-    OrderResponseLineItem:
-      type: object
-      properties:
-        tiPartNumber:
-          type: string
-        tiPartDescription:
-          type: string
-        quantity:
-          type: integer
-        status:
-          type: string
-        unitPrice:
-          type: number
-        customReelIndicator:
-          type: boolean
     OrderResponse:
       type: object
       properties:
@@ -157,31 +167,28 @@ components:
             properties:
               message:
                 type: string
-    Address:
+    Error:
       type: object
       properties:
-        firstName:
+        code:
           type: string
-        lastName:
+        message:
           type: string
-        company:
+    OrderResponseLineItem:
+      type: object
+      properties:
+        tiPartNumber:
           type: string
-        addressLine1:
+        tiPartDescription:
           type: string
-        addressLine2:
+        quantity:
+          type: integer
+        status:
           type: string
-        city:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
+        unitPrice:
+          type: number
+        customReelIndicator:
+          type: boolean
     OrderRequest:
       type: object
       required:
@@ -216,14 +223,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderLineItem'
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
   responses:
+    Unauthorized:
+      description: Invalid or missing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request parameters
       content:
@@ -232,12 +238,6 @@ components:
             $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid or missing authentication token
       content:
         application/json:
           schema:

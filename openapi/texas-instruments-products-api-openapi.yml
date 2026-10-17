@@ -87,7 +87,43 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
+  responses:
+    Unauthorized:
+      description: Invalid or missing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    PriceBreak:
+      type: object
+      description: Quantity-based price break for a TI part.
+      properties:
+        priceBreakQuantity:
+          type: integer
+          description: Minimum quantity for this price tier
+        price:
+          type: number
+          format: decimal
+          description: Unit price at this quantity break
     ProductInventory:
       type: object
       description: Inventory, pricing, and metadata for a TI part number.
@@ -142,16 +178,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FutureInventory'
-    Pricing:
+    Error:
       type: object
       properties:
-        currency:
+        code:
           type: string
-          description: Currency code (e.g., USD)
-        priceBreaks:
-          type: array
-          items:
-            $ref: '#/components/schemas/PriceBreak'
+        message:
+          type: string
     FutureInventory:
       type: object
       properties:
@@ -163,49 +196,16 @@ components:
         forecastDate:
           type: string
           description: Expected availability date
-    PriceBreak:
-      type: object
-      description: Quantity-based price break for a TI part.
-      properties:
-        priceBreakQuantity:
-          type: integer
-          description: Minimum quantity for this price tier
-        price:
-          type: number
-          format: decimal
-          description: Unit price at this quantity break
-    Error:
+    Pricing:
       type: object
       properties:
-        code:
+        currency:
           type: string
-        message:
-          type: string
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid or missing authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: Rate limit exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+          description: Currency code (e.g., USD)
+        priceBreaks:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceBreak'
   securitySchemes:
     OAuth2:
       type: oauth2
