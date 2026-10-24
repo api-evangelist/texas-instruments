@@ -1,492 +1,497 @@
 {
+  "info": {
+    "_postman_id": "29daae79-9610-45d7-9644-1c2f783c7119",
+    "name": "Texas Instruments Store Products API",
+    "description": "The Texas Instruments Store API provides programmatic access to TI's ordering and inventory platform. It enables enterprise customers to retrieve real-time inventory and pricing, create and retrieve orders, and track shipments via Advanced Ship Notice (ASN). Authentication uses OAuth 2.0 client credentials flow against the transact.ti.com token endpoint.\n\nContact Support:\n Name: Texas Instruments API Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:00:07.000Z",
+    "updatedAt": "2026-10-21T21:00:07.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-29daae79-9610-45d7-9644-1c2f783c7119"
+  },
   "item": [
     {
-      "id": "3f7c7fcd-488d-4e2a-863f-04eef0186ffd",
-      "name": "Products",
-      "description": {
-        "content": "Product inventory, pricing, and catalog endpoints",
-        "type": "text/plain"
-      },
+      "name": "products",
       "item": [
         {
-          "id": "9e7e2e3f-ef98-4262-8c0e-453cf1111116",
-          "name": "Get Product Inventory and Pricing",
-          "request": {
-            "name": "Get Product Inventory and Pricing",
-            "description": {
-              "content": "Retrieves real-time inventory availability, pricing breaks, future inventory forecasts, and product metadata for a specific TI part number. Part numbers containing /NOPB must be URL-encoded (/ becomes %2F).",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "products",
-                ":partNumber"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "currency",
-                  "value": "USD",
-                  "description": "Currency code for pricing data (e.g., USD, EUR)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "partNumber",
-                  "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{partNumber}",
+          "item": [
             {
-              "id": "79d53986-4109-4bea-aad5-f9d3e4557711",
-              "name": "Product inventory and pricing data",
-              "originalRequest": {
+              "name": "Get Product Inventory and Pricing",
+              "id": "fe4553e1-ccb2-4c7e-845c-a3e522f4a597",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/products/:partNumber?currency=USD",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "products",
                     ":partNumber"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Currency code for pricing data (e.g., USD, EUR)",
                       "key": "currency",
                       "value": "USD"
                     }
                   ],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "9a0144dc-db9c-482e-adaf-a50c33b8aaf2",
                       "key": "partNumber",
+                      "value": "<string>",
                       "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves real-time inventory availability, pricing breaks, future inventory forecasts, and product metadata for a specific TI part number. Part numbers containing /NOPB must be URL-encoded (/ becomes %2F)."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"tiPartNumber\": \"string\",\n  \"genericPartNumber\": \"string\",\n  \"description\": \"string\",\n  \"quantity\": 8211,\n  \"limit\": 9376,\n  \"minimumOrderQuantity\": 8703,\n  \"standardPackQuantity\": 1659,\n  \"lifeCycle\": \"string\",\n  \"eccn\": \"string\",\n  \"htsCode\": \"string\",\n  \"pinCount\": 9200,\n  \"packageType\": \"string\",\n  \"packageCarrier\": \"string\",\n  \"customReel\": false,\n  \"pricing\": [\n    {\n      \"currency\": \"string\",\n      \"priceBreaks\": [\n        {\n          \"priceBreakQuantity\": 5921,\n          \"price\": 9390.850958736188\n        },\n        {\n          \"priceBreakQuantity\": 9095,\n          \"price\": 9765.211550887467\n        }\n      ]\n    },\n    {\n      \"currency\": \"string\",\n      \"priceBreaks\": [\n        {\n          \"priceBreakQuantity\": 9748,\n          \"price\": 5388.996010665887\n        },\n        {\n          \"priceBreakQuantity\": 5508,\n          \"price\": 173.27636233864575\n        }\n      ]\n    }\n  ],\n  \"futureInventory\": [\n    {\n      \"forecastQuantity\": 1789,\n      \"forecastDate\": \"string\"\n    },\n    {\n      \"forecastQuantity\": 3041,\n      \"forecastDate\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "08b995c4-6337-4697-8c1e-6164bd0db307",
-              "name": "Invalid request parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "products",
-                    ":partNumber"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "1f8108f5-d61b-4303-8388-52ab8fa1633b",
+                  "name": "Product inventory and pricing data",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:partNumber?currency=USD",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":partNumber"
+                      ],
+                      "query": [
+                        {
+                          "description": "Currency code for pricing data (e.g., USD, EUR)",
+                          "key": "currency",
+                          "value": "USD"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "partNumber"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "currency",
-                      "value": "USD"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "partNumber",
-                      "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
-                    }
-                  ]
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"tiPartNumber\": \"<string>\",\n  \"genericPartNumber\": \"<string>\",\n  \"description\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"limit\": \"<integer>\",\n  \"minimumOrderQuantity\": \"<integer>\",\n  \"standardPackQuantity\": \"<integer>\",\n  \"lifeCycle\": \"<string>\",\n  \"eccn\": \"<string>\",\n  \"htsCode\": \"<string>\",\n  \"pinCount\": \"<integer>\",\n  \"packageType\": \"<string>\",\n  \"packageCarrier\": \"<string>\",\n  \"customReel\": \"<boolean>\",\n  \"pricing\": [\n    {\n      \"currency\": \"<string>\",\n      \"priceBreaks\": [\n        {\n          \"priceBreakQuantity\": \"<integer>\",\n          \"price\": \"<number>\"\n        },\n        {\n          \"priceBreakQuantity\": \"<integer>\",\n          \"price\": \"<number>\"\n        }\n      ]\n    },\n    {\n      \"currency\": \"<string>\",\n      \"priceBreaks\": [\n        {\n          \"priceBreakQuantity\": \"<integer>\",\n          \"price\": \"<number>\"\n        },\n        {\n          \"priceBreakQuantity\": \"<integer>\",\n          \"price\": \"<number>\"\n        }\n      ]\n    }\n  ],\n  \"futureInventory\": [\n    {\n      \"forecastQuantity\": \"<integer,null>\",\n      \"forecastDate\": \"<string>\"\n    },\n    {\n      \"forecastQuantity\": \"<integer,null>\",\n      \"forecastDate\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T21:00:07.000Z",
+                  "updatedAt": "2026-10-21T21:00:07.000Z",
+                  "uid": "35240-1f8108f5-d61b-4303-8388-52ab8fa1633b"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c41e45a9-82d7-4380-8228-bac1765f44d4",
-              "name": "Invalid or missing authentication token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "products",
-                    ":partNumber"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "147c6bc2-0c73-4f57-88b5-7a18cf55ea2a",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:partNumber?currency=USD",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":partNumber"
+                      ],
+                      "query": [
+                        {
+                          "description": "Currency code for pricing data (e.g., USD, EUR)",
+                          "key": "currency",
+                          "value": "USD"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "partNumber"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "currency",
-                      "value": "USD"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "partNumber",
-                      "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
-                    }
-                  ]
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:00:07.000Z",
+                  "updatedAt": "2026-10-21T21:00:07.000Z",
+                  "uid": "35240-147c6bc2-0c73-4f57-88b5-7a18cf55ea2a"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f60a0402-b1ba-421b-ab96-c669d0910c3b",
-              "name": "Resource not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "products",
-                    ":partNumber"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "b5a64509-7e47-45bd-a285-587ff1c94a79",
+                  "name": "Invalid or missing authentication token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:partNumber?currency=USD",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":partNumber"
+                      ],
+                      "query": [
+                        {
+                          "description": "Currency code for pricing data (e.g., USD, EUR)",
+                          "key": "currency",
+                          "value": "USD"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "partNumber"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "currency",
-                      "value": "USD"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "partNumber",
-                      "description": "(Required) TI part number (OPN). URL-encode special characters (e.g., /NOPB becomes %2FNOPB)."
-                    }
-                  ]
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:00:07.000Z",
+                  "updatedAt": "2026-10-21T21:00:07.000Z",
+                  "uid": "35240-b5a64509-7e47-45bd-a285-587ff1c94a79"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "0fc6daf4-4e5f-4066-9031-e49c646b2a0d",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:partNumber?currency=USD",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":partNumber"
+                      ],
+                      "query": [
+                        {
+                          "description": "Currency code for pricing data (e.g., USD, EUR)",
+                          "key": "currency",
+                          "value": "USD"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "partNumber"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:00:07.000Z",
+                  "updatedAt": "2026-10-21T21:00:07.000Z",
+                  "uid": "35240-0fc6daf4-4e5f-4066-9031-e49c646b2a0d"
                 }
               ],
-              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T21:00:07.000Z",
+              "updatedAt": "2026-10-21T21:00:07.000Z",
+              "uid": "35240-fe4553e1-ccb2-4c7e-845c-a3e522f4a597"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "99ca6a8a-03cf-4c5c-b528-bb493fed78d1",
+          "createdAt": "2026-10-21T21:00:07.000Z",
+          "updatedAt": "2026-10-21T21:00:07.000Z",
+          "uid": "35240-99ca6a8a-03cf-4c5c-b528-bb493fed78d1"
         },
         {
-          "id": "ef5561e4-8795-4dd5-8856-9578eb244684",
-          "name": "Get Product Catalog",
-          "request": {
-            "name": "Get Product Catalog",
-            "description": {
-              "content": "Retrieves inventory and pricing data for all available TI part numbers. Rate limited to 1 request every 4 hours (6 per day). Returns the full catalog for bulk import use cases.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "products",
-                "catalog"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "currency",
-                  "value": "USD",
-                  "description": "Currency code for pricing data"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "catalog",
+          "item": [
             {
-              "id": "4482b301-3fe5-4ff3-a287-8c6bf115e9e8",
-              "name": "Full product catalog with inventory and pricing",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "products",
-                    "catalog"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "currency",
-                      "value": "USD"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Get Product Catalog",
+              "id": "ec35e778-3be5-4379-96d9-50453030a2a4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"products\": [\n    {\n      \"tiPartNumber\": \"string\",\n      \"genericPartNumber\": \"string\",\n      \"description\": \"string\",\n      \"quantity\": 5421,\n      \"limit\": 9384,\n      \"minimumOrderQuantity\": 6583,\n      \"standardPackQuantity\": 6945,\n      \"lifeCycle\": \"string\",\n      \"eccn\": \"string\",\n      \"htsCode\": \"string\",\n      \"pinCount\": 2931,\n      \"packageType\": \"string\",\n      \"packageCarrier\": \"string\",\n      \"customReel\": true,\n      \"pricing\": [\n        {\n          \"currency\": \"string\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"currency\": \"string\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"futureInventory\": [\n        {\n          \"forecastQuantity\": 6323,\n          \"forecastDate\": \"string\"\n        },\n        {\n          \"forecastQuantity\": 4858,\n          \"forecastDate\": \"string\"\n        }\n      ]\n    },\n    {\n      \"tiPartNumber\": \"string\",\n      \"genericPartNumber\": \"string\",\n      \"description\": \"string\",\n      \"quantity\": 8284,\n      \"limit\": 7699,\n      \"minimumOrderQuantity\": 4609,\n      \"standardPackQuantity\": 7102,\n      \"lifeCycle\": \"string\",\n      \"eccn\": \"string\",\n      \"htsCode\": \"string\",\n      \"pinCount\": 240,\n      \"packageType\": \"string\",\n      \"packageCarrier\": \"string\",\n      \"customReel\": true,\n      \"pricing\": [\n        {\n          \"currency\": \"string\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"currency\": \"string\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"priceBreakQuantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"futureInventory\": [\n        {\n          \"forecastQuantity\": 7698,\n          \"forecastDate\": \"string\"\n        },\n        {\n          \"forecastQuantity\": 9355,\n          \"forecastDate\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "cb1cc0fe-a560-46f0-8a0d-ee162f158fdd",
-              "name": "Invalid or missing authentication token",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/products/catalog?currency=USD",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "products",
                     "catalog"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Currency code for pricing data",
                       "key": "currency",
                       "value": "USD"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves inventory and pricing data for all available TI part numbers. Rate limited to 1 request every 4 hours (6 per day). Returns the full catalog for bulk import use cases."
               },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3ca3bf8d-48bd-4641-8efc-14997657000d",
-              "name": "Rate limit exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "products",
-                    "catalog"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "30e2ccd6-8887-4fb2-9794-ad7bc422b19b",
+                  "name": "Full product catalog with inventory and pricing",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/catalog?currency=USD",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        "catalog"
+                      ],
+                      "query": [
+                        {
+                          "description": "Currency code for pricing data",
+                          "key": "currency",
+                          "value": "USD"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "currency",
-                      "value": "USD"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"products\": [\n    {\n      \"tiPartNumber\": \"<string>\",\n      \"genericPartNumber\": \"<string>\",\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"limit\": \"<integer>\",\n      \"minimumOrderQuantity\": \"<integer>\",\n      \"standardPackQuantity\": \"<integer>\",\n      \"lifeCycle\": \"<string>\",\n      \"eccn\": \"<string>\",\n      \"htsCode\": \"<string>\",\n      \"pinCount\": \"<integer>\",\n      \"packageType\": \"<string>\",\n      \"packageCarrier\": \"<string>\",\n      \"customReel\": \"<boolean>\",\n      \"pricing\": [\n        {\n          \"currency\": \"<string>\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": \"<integer>\",\n              \"price\": \"<number>\"\n            },\n            {\n              \"priceBreakQuantity\": \"<integer>\",\n              \"price\": \"<number>\"\n            }\n          ]\n        },\n        {\n          \"currency\": \"<string>\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": \"<integer>\",\n              \"price\": \"<number>\"\n            },\n            {\n              \"priceBreakQuantity\": \"<integer>\",\n              \"price\": \"<number>\"\n            }\n          ]\n        }\n      ],\n      \"futureInventory\": [\n        {\n          \"forecastQuantity\": \"<integer,null>\",\n          \"forecastDate\": \"<string>\"\n        },\n        {\n          \"forecastQuantity\": \"<integer,null>\",\n          \"forecastDate\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"tiPartNumber\": \"<string>\",\n      \"genericPartNumber\": \"<string>\",\n      \"description\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"limit\": \"<integer>\",\n      \"minimumOrderQuantity\": \"<integer>\",\n      \"standardPackQuantity\": \"<integer>\",\n      \"lifeCycle\": \"<string>\",\n      \"eccn\": \"<string>\",\n      \"htsCode\": \"<string>\",\n      \"pinCount\": \"<integer>\",\n      \"packageType\": \"<string>\",\n      \"packageCarrier\": \"<string>\",\n      \"customReel\": \"<boolean>\",\n      \"pricing\": [\n        {\n          \"currency\": \"<string>\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": \"<integer>\",\n              \"price\": \"<number>\"\n            },\n            {\n              \"priceBreakQuantity\": \"<integer>\",\n              \"price\": \"<number>\"\n            }\n          ]\n        },\n        {\n          \"currency\": \"<string>\",\n          \"priceBreaks\": [\n            {\n              \"priceBreakQuantity\": \"<integer>\",\n              \"price\": \"<number>\"\n            },\n            {\n              \"priceBreakQuantity\": \"<integer>\",\n              \"price\": \"<number>\"\n            }\n          ]\n        }\n      ],\n      \"futureInventory\": [\n        {\n          \"forecastQuantity\": \"<integer,null>\",\n          \"forecastDate\": \"<string>\"\n        },\n        {\n          \"forecastQuantity\": \"<integer,null>\",\n          \"forecastDate\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T21:00:07.000Z",
+                  "updatedAt": "2026-10-21T21:00:07.000Z",
+                  "uid": "35240-30e2ccd6-8887-4fb2-9794-ad7bc422b19b"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "c3114c89-87a9-41e9-941a-ff3527cf83f3",
+                  "name": "Invalid or missing authentication token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/catalog?currency=USD",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        "catalog"
+                      ],
+                      "query": [
+                        {
+                          "description": "Currency code for pricing data",
+                          "key": "currency",
+                          "value": "USD"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:00:07.000Z",
+                  "updatedAt": "2026-10-21T21:00:07.000Z",
+                  "uid": "35240-c3114c89-87a9-41e9-941a-ff3527cf83f3"
+                },
+                {
+                  "id": "9bab2441-c466-4135-8f14-e2fb5fe28ee7",
+                  "name": "Rate limit exceeded",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/catalog?currency=USD",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        "catalog"
+                      ],
+                      "query": [
+                        {
+                          "description": "Currency code for pricing data",
+                          "key": "currency",
+                          "value": "USD"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T21:00:07.000Z",
+                  "updatedAt": "2026-10-21T21:00:07.000Z",
+                  "uid": "35240-9bab2441-c466-4135-8f14-e2fb5fe28ee7"
                 }
               ],
-              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T21:00:07.000Z",
+              "updatedAt": "2026-10-21T21:00:07.000Z",
+              "uid": "35240-ec35e778-3be5-4379-96d9-50453030a2a4"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "b73f38ef-64bb-4677-b2e4-a21faefaf45b",
+          "createdAt": "2026-10-21T21:00:07.000Z",
+          "updatedAt": "2026-10-21T21:00:07.000Z",
+          "uid": "35240-b73f38ef-64bb-4677-b2e4-a21faefaf45b"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://transact.ti.com/v1",
-      "key": "baseUrl"
+      "id": "c64b1094-677b-4f35-9037-82e2688e47ba",
+      "createdAt": "2026-10-21T21:00:07.000Z",
+      "updatedAt": "2026-10-21T21:00:07.000Z",
+      "uid": "35240-c64b1094-677b-4f35-9037-82e2688e47ba"
     }
   ],
   "auth": {
@@ -494,21 +499,20 @@
     "oauth2": [
       {
         "key": "accessTokenUrl",
-        "value": "https://transact.ti.com/v1/oauth/accesstoken"
+        "value": "https://transact.ti.com/v1/oauth/accesstoken",
+        "type": "string"
       },
       {
         "key": "grant_type",
-        "value": "client_credentials"
+        "value": "client_credentials",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "270b15d5-65dd-4f8f-b28a-6105f701812d",
-    "name": "Texas Instruments Product Information Financial Products API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Texas Instruments Product Information API provides programmatic access to TI's product catalog, including part details, parametric data, quality and reliability information. Two variants are available: the standard API (multiple endpoint calls, higher rate limit) and the orchestrated API (single endpoint call, lower rate limit). Authentication uses OAuth 2.0 client credentials flow.\n\nContact Support:\n Name: Texas Instruments API Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://transact.ti.com/v2/store"
     }
-  }
+  ]
 }
